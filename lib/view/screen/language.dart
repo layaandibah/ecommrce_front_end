@@ -17,33 +17,33 @@ class Language extends GetView<MyLocal> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text("1".tr,
-                style: TextStyle(
+                style:const TextStyle(
                     fontSize: 30,
                     color: AppColor.black,
                     fontWeight: FontWeight.bold)),
-            SizedBox(height: 20,),
-            MaterialButton(padding: EdgeInsets.symmetric(horizontal: 85),
+           const SizedBox(height: 20,),
+            MaterialButton(padding:const EdgeInsets.symmetric(horizontal: 85),
                 color: AppColor.primarycolor,
                 child: Text("2".tr,
-                    style: TextStyle(fontSize: 20, color: Colors.white)),
+                    style:const TextStyle(fontSize: 20, color: Colors.white)),
                 onPressed: () {
                   controller.changelocale("ar");
                 }),
-            MaterialButton(padding: EdgeInsets.symmetric(horizontal: 80,),
+            MaterialButton(padding:const EdgeInsets.symmetric(horizontal: 80,),
                 color: AppColor.primarycolor,
                 child: Text(
                   "3".tr,
-                  style: TextStyle(fontSize: 20, color: Colors.white),
+                  style:const TextStyle(fontSize: 20, color: Colors.white),
                 ),
                 onPressed: () {
                   controller.changelocale("en");
                 }),
-            SizedBox(height: 100,),
-            MaterialButton(padding: EdgeInsets.symmetric(horizontal: 80,),
+           const SizedBox(height: 100,),
+            MaterialButton(padding:const EdgeInsets.symmetric(horizontal: 80,),
                 color: AppColor.primarycolor,
                 child: Text(
                   "4".tr,
-                  style: TextStyle(fontSize: 20, color: Colors.white),
+                  style:const TextStyle(fontSize: 20, color: Colors.white),
                 ),
                 onPressed: () {
                 Get.offNamed(AppRoutes.onboarding);
