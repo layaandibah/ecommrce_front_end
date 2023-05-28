@@ -12,7 +12,7 @@ class CustomTextFormFaild extends StatelessWidget {
       required this.titletext,
       required this.hinttext,
       required this.suffixicon,
-     required this.textEditingController,required this.validator,required this.keyboardType})
+    required  this.textEditingController,required this.validator,required this.keyboardType})
       : super(key: key);
 
   @override

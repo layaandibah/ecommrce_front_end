@@ -17,9 +17,12 @@ import 'package:get/get.dart';
 import 'view/screen/auth/signup.dart';
 
 List<GetPage<dynamic>>? routes=[
-  GetPage(name: "/", page:()=>Language(),middlewares: [
-    MyMiddleWare(),
-  ] ),
+  GetPage(name: "/", page:()=>HomePage() ),
+
+  // GetPage(name: "/", page:()=>Language(),middlewares: [
+  //   MyMiddleWare(),
+  // ] ),
+  //
   GetPage(name: AppRoutes.login, page:()=>Login() ),
   GetPage(name: AppRoutes.signup , page:()=>SignUp() ),
   GetPage(name: AppRoutes.verifycode, page:()=>VerifyCode() ),
@@ -32,7 +35,6 @@ List<GetPage<dynamic>>? routes=[
   GetPage(name: AppRoutes.onboarding, page:()=>OnBoarding() ),
   //Home
   GetPage(name: AppRoutes.homepage, page:()=>HomePage() ),
-
 
 
 ];

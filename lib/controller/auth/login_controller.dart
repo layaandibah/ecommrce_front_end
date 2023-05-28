@@ -45,7 +45,7 @@ class LogInControllerImp extends LogInController {
         if(res["status"]=="success"){
 
           //data.addAll(res["data"]);
-          myServices.sharedPreferences.setString("id", res["data"]["users_id"]);
+          myServices.sharedPreferences.setInt("id", res["data"]["users_id"]);
           myServices.sharedPreferences.setString("username", res["data"]["users_name"]);
           myServices.sharedPreferences.setString("email", res["data"]["users_email"]);
           myServices.sharedPreferences.setString("phone", res["data"]["users_phone"]);
