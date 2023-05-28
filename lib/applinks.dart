@@ -1,6 +1,6 @@
 class AppLinks{
 
-  static const String serverlink="http://192.168.115.214/ecommerce";
+  static const String serverlink="http://192.168.137.1/ecommerce";
   //test
   static const String testlink="$serverlink/test.php";
  //auth
@@ -10,6 +10,8 @@ class AppLinks{
   static const String verifycode="$serverlink/forgetpassword/verifycode.php";
   static const String checkemail="$serverlink/forgetpassword/checkemail.php";
   static const String resetpassword="$serverlink/forgetpassword/resetpassword.php";
+//home
+  static const String homepage="$serverlink/home.php";
 
 
 
