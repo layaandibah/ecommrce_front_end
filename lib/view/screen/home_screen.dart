@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 
 import '../widget/appbar/customappbar_cart.dart';
 import '../widget/floatingactionbutton/customfloatingactionbuttoncoin.dart';
+import '../widget/homepage/customdrawer.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -23,7 +24,6 @@ class HomePage extends StatelessWidget {
         appBar: AppBar(
 
           primary: true,
-          leading: Icon(Icons.notes),
           backgroundColor: AppColor.primarycolor,
           actions: [
             InkWell(
@@ -80,6 +80,8 @@ class HomePage extends StatelessWidget {
 
             ],
           ),
-        ));
+        ),
+      drawer: CustomDrawer(),
+    );
   }
 }
