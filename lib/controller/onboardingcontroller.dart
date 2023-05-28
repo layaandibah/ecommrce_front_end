@@ -24,8 +24,8 @@ class OnBoardingControllerImp extends OnBoardingController {
   next() {
     currentpage++;
     if (currentpage >= onBoardingList.length) {
-      myServices.sharedPreferences.setString("onboarding", "done");
-      Get.offAllNamed(AppRoutes.login);
+      myServices.sharedPreferences.setString("step", "1");
+      Get.offAllNamed(AppRoutes.homepage);
     } else {
       pageController.animateToPage(currentpage,
           duration: const Duration(milliseconds: 700), curve: Curves.easeInOut);
