@@ -24,22 +24,24 @@ class CustomAppBarCartBox extends StatelessWidget {
             color: AppColor.primarycolor,
             size: 30,
           ),
-          Center(
-            child: Container(
+          Container(
               alignment: Alignment.center,
-              height: 20,
-              width: 20,
+              height: 25,
+              width: 25,
               decoration: BoxDecoration(
                   color: AppColor.primarycolor,
                   borderRadius: BorderRadius.circular(20)),
-              child: Text("$count",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 10,
+              child: Center(
+                child: Text("$count",
+                  style: TextStyle(
+                    height: 0,
+                    color: Colors.white,
+                    fontSize: 12,
+                  ),
                 ),
               ),
             ),
-          ),
+
         ],
       ),
     );

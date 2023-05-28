@@ -10,13 +10,17 @@ class CustomFloatingActionButtonCoin extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10,right: 7),
-      child: FloatingActionButton.extended(
-        extendedPadding:const EdgeInsets.symmetric(horizontal:5,vertical:double.minPositive),
-        onPressed: null,
-        backgroundColor: AppColor.primarycolor,
-        shape:  RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10)),
-        label:  Text("$usd USD=$lbp LBP",style:const TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
+      child: SizedBox(
+        height: 25,
+        child: FloatingActionButton.extended(
+
+          extendedPadding:const EdgeInsets.symmetric(horizontal:5,vertical:double.minPositive),
+          onPressed: null,
+          backgroundColor: AppColor.primarycolor,
+          shape:  RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10)),
+          label:  Text("$usd USD=$lbp LBP",style:const TextStyle(fontSize: 10,fontWeight: FontWeight.bold),),
+        ),
       ),
     );
   }

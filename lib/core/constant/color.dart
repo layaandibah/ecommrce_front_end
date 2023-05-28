@@ -5,11 +5,8 @@ class AppColor{
   // static const Color primarycolor=Color(0xff5DB1DF);
    static const Color black=Color(0xff000000);
    static const Color white=Color(0xffffffff);
-   static const Color primarycolor=Color(0xfff36686);
+   static const Color primarycolor=Color(0xff91281a);
    static const Color wightpurble=Color(0xfff8f9fd);
-   //home colors.....................
-   static const Color appBarColor=Color(0xff91281a);
-   static const Color searchColor=Color(0xff642018);
 
 
 
