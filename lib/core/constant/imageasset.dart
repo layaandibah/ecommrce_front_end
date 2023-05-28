@@ -11,7 +11,9 @@ class ImageAsset{
   static String offline="$rootLottie/offline.json";
   static String server="$rootLottie/server.json";
   static String nodata="$rootLottie/nodata.json";
+//home
 
+  static String homeshope="$rootImages/shop.jpg";
 
 
 //static String onBoardingImageFour="$rootImages/onboardingfour.PNG";

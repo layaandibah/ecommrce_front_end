@@ -24,6 +24,7 @@ class HomePageControllerImp extends HomePageController{
 
  @override
   void onInit() {
+   getData();
    initialData();
     super.onInit();
   }

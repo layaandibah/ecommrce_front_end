@@ -2,7 +2,7 @@ import 'package:ecommerce/core/constant/color.dart';
 import 'package:flutter/material.dart';
 
 ThemeData themeEnglish = ThemeData(
-    fontFamily: "PlayFairDisplay",
+   // fontFamily: "PlayFairDisplay",
     textTheme: const TextTheme(
       displayLarge: TextStyle(
           fontWeight: FontWeight.bold, fontSize: 25, color: AppColor.black),
