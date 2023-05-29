@@ -1,11 +1,15 @@
 class AppLinks{
 
 
-  static const String serverlink="http://192.168.185.9/ecommerce_back_end";
+  static const String serverlink="http://192.168.50.214/ecommerce";
 
-  //test
-  static const String testlink="$serverlink/test.php";
- //auth
+  //image
+  static const String imagestatic="$serverlink/upload";
+  static const String categories="$imagestatic/categories";
+  static const String items="$imagestatic/items";
+
+
+  //auth
   static const String signup="$serverlink/auth/signup.php";
   static const String login="$serverlink/auth/login.php";
   static const String verifycodeSignUp="$serverlink/auth/verifycode.php";

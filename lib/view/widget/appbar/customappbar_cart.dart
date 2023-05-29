@@ -19,7 +19,7 @@ class CustomAppBarCartBox extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Icon(
+        const  Icon(
             Icons.shopping_basket_sharp,
             color: AppColor.primarycolor,
             size: 30,
@@ -33,7 +33,7 @@ class CustomAppBarCartBox extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20)),
               child: Center(
                 child: Text("$count",
-                  style: TextStyle(
+                  style:const TextStyle(
                     height: 0,
                     color: Colors.white,
                     fontSize: 12,

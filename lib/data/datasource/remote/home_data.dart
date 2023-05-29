@@ -1,6 +1,6 @@
 import 'package:ecommerce/applinks.dart';
 import 'package:ecommerce/core/class/crud.dart';
-import 'package:either_dart/either.dart';
+
 
 class HomeData{
 

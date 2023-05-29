@@ -1,3 +1,4 @@
+import 'package:ecommerce/applinks.dart';
 import 'package:ecommerce/controller/homepage_controller.dart';
 import 'package:ecommerce/core/class/handlingdataview.dart';
 import 'package:ecommerce/core/constant/color.dart';
@@ -68,19 +69,15 @@ class HomePage extends StatelessWidget {
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     scrollDirection: Axis.vertical,
-                    itemCount: 29,
+                    itemCount: controller.categories.length,
                     itemBuilder: (context, i) {
                       return InkWell(
                         onTap: () {},
                         child: Card(
                           child: Column(
                             children: [
-                              Image.asset(
-                                ImageAsset.logo,
-                                height: 60,
-                                width: 60,
-                              ),
-                              Text("food")
+                             Image.network("${AppLinks.categories}/${controller.categories[i]['categories_image']}",height: 70,width: 70,),
+                              Text("${controller.categories[i]["categories_name"]}")
                             ],
                           ),
                         ),

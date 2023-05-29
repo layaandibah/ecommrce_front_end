@@ -12,22 +12,18 @@ abstract class HomePageController extends GetxController{
 class HomePageControllerImp extends HomePageController{
   MyServices myServices=Get.find();
   String? username;
+  int? id;
+
   StatusRequest? statusrequest;
   HomeData homeData=HomeData(Get.find());
   List categories=[];
+
   @override
   initialData(){
     username=myServices.sharedPreferences.getString("username");
-
+    id=myServices.sharedPreferences.getInt("id");
   }
 
-
- @override
-  void onInit() {
-   getData();
-   initialData();
-    super.onInit();
-  }
 
   @override
   getData()async {
@@ -46,6 +42,13 @@ class HomePageControllerImp extends HomePageController{
       }
     }
     update();
+  }
+
+  @override
+  void onInit() {
+    getData();
+    initialData();
+    super.onInit();
   }
 
 }
