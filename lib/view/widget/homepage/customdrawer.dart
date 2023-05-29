@@ -51,7 +51,7 @@ class CustomDrawer extends StatelessWidget {
                 ),
                 ListTile(
                   title: const Text(
-                    "My Logout",
+                    "Logout",
                     style: TextStyle(fontSize: 15),
                   ),
                   onTap: () {},

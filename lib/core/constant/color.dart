@@ -7,6 +7,8 @@ class AppColor{
    static const Color white=Color(0xffffffff);
    static const Color primarycolor=Color(0xff91281a);
    static const Color wightpurble=Color(0xfff8f9fd);
+   //items color
+static const Color dialogColor=Color(0xff424242);
 
 
 
