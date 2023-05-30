@@ -9,6 +9,7 @@ import 'package:ecommerce/view/screen/auth/success_signup.dart';
 import 'package:ecommerce/view/screen/auth/forgetpassword/verifycode.dart';
 import 'package:ecommerce/view/screen/auth/verifycodesignup.dart';
 import 'package:ecommerce/view/screen/home_screen.dart';
+import 'package:ecommerce/view/screen/items_screen.dart';
 import 'package:ecommerce/view/screen/language.dart';
 import 'package:ecommerce/view/screen/onboarding.dart';
 import 'package:get/get.dart';
@@ -35,6 +36,9 @@ List<GetPage<dynamic>>? routes=[
   GetPage(name: AppRoutes.onboarding, page:()=>OnBoarding() ),
   //Home
   GetPage(name: AppRoutes.homepage, page:()=>HomePage() ),
+  //items
+  GetPage(name: AppRoutes.itemsscreen, page:()=>ItemsScreen() ),
+
 
 
 ];

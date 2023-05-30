@@ -11,6 +11,9 @@ class AppRoutes{
   static const String checkemail="/checkemail";
   //Home
   static const String homepage="/homepage";
+  //items
+  static const String itemsscreen="/itemsscreen";
+
 
 
 

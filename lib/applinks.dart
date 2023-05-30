@@ -1,7 +1,7 @@
 class AppLinks{
 
 
-  static const String serverlink="http://192.168.202.9/ecommerce_back_end";
+  static const String serverlink="http://192.168.50.214/ecommerce";
 
   //image
   static const String imagestatic="$serverlink/upload";
@@ -16,7 +16,7 @@ class AppLinks{
   static const String verifycode="$serverlink/forgetpassword/verifycode.php";
   static const String checkemail="$serverlink/forgetpassword/checkemail.php";
   static const String resetpassword="$serverlink/forgetpassword/resetpassword.php";
-//home
+  //home
   static const String homepage="$serverlink/home.php";
 
   //test

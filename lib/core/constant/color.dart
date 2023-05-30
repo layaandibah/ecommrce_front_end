@@ -9,6 +9,9 @@ class AppColor{
    static const Color wightpurble=Color(0xfff8f9fd);
    //items color
 static const Color dialogColor=Color(0xff424242);
+static Color? promotioncolor=Colors.greenAccent;
+static Color? pink=Colors.pinkAccent;
+
 
 
 

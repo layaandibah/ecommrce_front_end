@@ -2,7 +2,6 @@ import 'package:ecommerce/applinks.dart';
 import 'package:ecommerce/controller/homepage_controller.dart';
 import 'package:ecommerce/core/class/handlingdataview.dart';
 import 'package:ecommerce/core/constant/color.dart';
-import 'package:ecommerce/core/constant/imageasset.dart';
 import 'package:ecommerce/core/constant/routes.dart';
 import 'package:ecommerce/view/widget/appbar/customappbar_textformfield.dart';
 import 'package:ecommerce/view/widget/itemspage/customitemform.dart';
@@ -12,7 +11,6 @@ import 'package:get/get.dart';
 
 import '../widget/appbar/customappbar_cart.dart';
 import '../widget/floatingactionbutton/customfloatingactionbuttoncoin.dart';
-import '../widget/homepage/customdrawer.dart';
 import '../widget/itemspage/customDialog.dart';
 
 class ItemsScreen extends StatelessWidget {
@@ -20,12 +18,12 @@ class ItemsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    HomePageControllerImp controller = Get.put(HomePageControllerImp());
     int? lbp = 1;
     int? usd = 42567;
 
     return SafeArea(
       child: GetBuilder<HomePageControllerImp>(
+        init: HomePageControllerImp(),
         builder: (controller) => HandlingDataView(
             statusrequest: controller.statusrequest,
             widget: Scaffold(
@@ -41,7 +39,7 @@ class ItemsScreen extends StatelessWidget {
                       icon: const Icon(
                         Icons.arrow_back_ios,
                       ),
-                      onPressed: () => Scaffold.of(context).openDrawer(),
+                      onPressed: () => Get.back(),
                     ),
                   );
                 }),
@@ -65,28 +63,36 @@ class ItemsScreen extends StatelessWidget {
                 ),
               ),
               body: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    //List of Types
-                    CustomListTypes(),
-                    //Default sorting
-                    CustomDialog(),
-                    Expanded(child: GridView.builder(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  //List of Types
+                  CustomListTypes(),
+                  //Default sorting
+                  CustomDialog(),
+                  Expanded(
+                    child: GridView.builder(
                       shrinkWrap: true,
-                      physics:ScrollPhysics(),
+                      physics: ScrollPhysics(),
                       scrollDirection: Axis.vertical,
-                      itemCount: controller.categories.length,
+                      itemCount: controller.items.length,
                       itemBuilder: (context, i) {
-                        return CustomItemForm(itemCount: controller.categories.length,
-                          imageUrl:"${AppLinks.categories}/${controller.categories[i]['categories_image']}",
-                          itemName:"${controller.categories[i]["categories_name"]}", description: 'Mix of some fruits', price:90.11,);
-                      },
-                      gridDelegate:const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,childAspectRatio: 0.59),
-                    ),)
-                  ],
-                ),
+                        return CustomItemForm(
 
+                          itemCount: controller.items.length,
+                          imageUrl:
+                              "${AppLinks.items}/${controller.items[i]['items_image']}",
+                          itemName: "${controller.items[i]["items_name"]}",
+                          description: '${controller.items[i]["items_desc"]}',
+                          price: controller.items[i]["items_price"],
+                        );
+                      },
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2, childAspectRatio: 0.59),
+                    ),
+                  )
+                ],
+              ),
             )),
       ),
     );

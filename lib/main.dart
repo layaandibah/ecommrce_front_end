@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       initialBinding: MyBinding(),
       // routes: routes,
       getPages:routes,
-      home:const ItemsScreen(),
+      //home:const ItemsScreen(),
     );
   }
 }

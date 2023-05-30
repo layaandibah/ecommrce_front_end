@@ -2,7 +2,6 @@ import 'package:ecommerce/controller/auth/login_controller.dart';
 import 'package:ecommerce/controller/password_controller.dart';
 import 'package:ecommerce/core/class/handlingdataview.dart';
 import 'package:ecommerce/core/constant/color.dart';
-import 'package:ecommerce/core/constant/routes.dart';
 import 'package:ecommerce/core/function/exitapp.dart';
 import 'package:ecommerce/core/function/validator.dart';
 import 'package:ecommerce/view/widget/auth/custombuttomntextauth.dart';

@@ -1,5 +1,6 @@
 import 'package:ecommerce/core/constant/color.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CustomDrawer extends StatelessWidget {
   CustomDrawer({Key? key}) : super(key: key);
@@ -12,7 +13,9 @@ class CustomDrawer extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Get.back();
+          },
           icon: const Icon(
             Icons.arrow_back,
             color: AppColor.black,
@@ -25,6 +28,7 @@ class CustomDrawer extends StatelessWidget {
         child: Column(
           children: [
             ExpansionTile(
+
               leading: Icon(Icons.account_circle),
               title: Text("User Name"),
               children: [
@@ -33,7 +37,9 @@ class CustomDrawer extends StatelessWidget {
                     "My Account",
                     style: TextStyle(fontSize: 15),
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    
+                  },
                 ),
                 ListTile(
                   title: const Text(
