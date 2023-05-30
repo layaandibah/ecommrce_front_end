@@ -8,7 +8,7 @@ class ImageAsset{
   static String onBoardingImageThree="$rootImages/img.png";
   static String successimagesignup="$rootImages/success1.png";
 
-  static String drawerImage="$rootImages/mtn.png";
+  static String loadingPicture="$rootImages/loading.png";
 
   static String loading="$rootLottie/loading.json";
   static String offline="$rootLottie/offline.json";
