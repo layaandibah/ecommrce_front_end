@@ -13,6 +13,7 @@ import 'package:get/get.dart';
 import '../widget/appbar/customappbar_cart.dart';
 import '../widget/floatingactionbutton/customfloatingactionbuttoncoin.dart';
 import '../widget/homepage/customdrawer.dart';
+import 'item_description.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -83,20 +84,20 @@ class HomePage extends StatelessWidget {
                             onTap: () {
                               Get.toNamed(AppRoutes.itemsscreen);
                             },
-                            child: Container(
-                              width: 300,
-                              height: 100,
-                              child: Card(
-                                child: Column(
-                                  children: [
-                                    Image.network(
-                                      "${AppLinks.categories}/${controller.categories[i]['categories_image']}",
-                                     fit: BoxFit.fill,
-                                    ),
-                                    Text(
-                                        "${controller.categories[i]["categories_name"]}",style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold),)
-                                  ],
-                                ),
+                            child:Card(
+                              child: Column(
+                                children: [
+                                  FadeInImage.assetNetwork(
+                                    placeholder: ImageAsset.loadingPicture,
+                                    placeholderCacheHeight: 75,
+                                    placeholderFit: BoxFit.fill,
+                                    image: "${AppLinks.categories}/${controller.categories[i]['categories_image']}",
+                                    height: 75,
+                                    fit: BoxFit.fill,
+                                  ),
+                                  Text(
+                                    "${controller.categories[i]["categories_name"]}",style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold),)
+                                ],
                               ),
                             ),
                           );
@@ -140,6 +141,24 @@ class HomePage extends StatelessWidget {
                           itemName: "${controller.items[i]["items_name"]}",
                           description: '${controller.items[i]["items_desc"]}',
                           price: controller.items[i]["items_price"],
+                          onTap:() {
+                            showModalBottomSheet(
+                                context: context,
+                                isScrollControlled: true,
+                                builder: (_) => ItemDescription(
+                                    imageUrl:
+                                    "${AppLinks.items}/${controller.items[i]['items_image']}",
+                                    itemCount: 5,
+                                    discount: controller.items[i]["items_discount"],
+                                    increaseFun:(){},
+                                    decreaseFun: (){},
+                                    name: "${controller.items[i]["items_name"]}",
+                                    description:"${controller.items[i]["items_desc"]}",
+                                    price: controller.items[i]["items_price"],
+                                    newPrice: controller.newprice!,
+                                    totalPrice: 5.36,
+                                    onTap:(){}));
+                          },
                         );
                       },
                       gridDelegate:

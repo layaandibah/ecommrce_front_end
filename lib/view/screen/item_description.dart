@@ -8,7 +8,32 @@ import 'package:get/get.dart';
 import '../../core/constant/imageasset.dart';
 
 class ItemDescription extends StatelessWidget {
-  const ItemDescription({Key? key}) : super(key: key);
+  String imageUrl;
+  int itemCount;
+  int discount;
+  void Function()? increaseFun;
+  void Function()? decreaseFun;
+  String name;
+  String description;
+  double price;
+  double newPrice;
+  double totalPrice;
+  void Function()? onTap;
+
+   ItemDescription(
+      {required this.imageUrl,
+      required this.itemCount,
+        required this.discount,
+      required this.increaseFun,
+      required this.decreaseFun,
+      required this.name,
+      required this.description,
+      required this.price,
+        required this.newPrice,
+      required this.totalPrice,
+      required this.onTap,
+      Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,17 +42,26 @@ class ItemDescription extends StatelessWidget {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CustomItemPicture(imageUrl:""),
+            CustomItemPicture(imageUrl: imageUrl,discount:discount),
             const Divider(
               thickness: 1.5,
             ),
-            const SizedBox(height: 30,),
-            CustomItemButton(itemCount:4, increaseFun:(){}, decreaseFun:(){}),
-            CustomNameDescriptionPrice(name:"Tanmia.", description: "Mortadella Chicken Plain, 200g", price:1.47),
             const SizedBox(
               height: 30,
             ),
-            CustomAddToBag(title:"ADD TO BAG", totalPrice: 12.56, onTap:(){}),
+            CustomItemButton(
+                itemCount: itemCount,
+                increaseFun: increaseFun,
+                decreaseFun: decreaseFun),
+            CustomNameDescriptionPrice(
+                name: name, description: description,discount: discount ,price: price,newPrice:newPrice ,),
+           discount>0? const SizedBox(
+              height: 40,
+            ):const SizedBox(
+             height: 50,
+           ),
+            CustomAddToBag(
+                title: "ADD TO BAG", totalPrice: totalPrice, onTap: onTap),
           ],
         ),
       ),

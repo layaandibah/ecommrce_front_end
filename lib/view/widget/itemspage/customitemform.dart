@@ -9,6 +9,7 @@ class CustomItemForm extends StatelessWidget {
   final String itemName;
   final String description;
   final double price;
+  void Function()? onTap;
 
   CustomItemForm(
       {required this.itemCount,
@@ -16,6 +17,7 @@ class CustomItemForm extends StatelessWidget {
       required this.itemName,
       required this.description,
       required this.price,
+        required this.onTap,
       Key? key})
       : super(key: key);
 
@@ -24,7 +26,7 @@ class CustomItemForm extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 7),
       child: InkWell(
-        onTap: () {},
+        onTap: onTap,
         child: Card(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),

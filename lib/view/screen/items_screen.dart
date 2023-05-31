@@ -3,6 +3,7 @@ import 'package:ecommerce/controller/homepage_controller.dart';
 import 'package:ecommerce/core/class/handlingdataview.dart';
 import 'package:ecommerce/core/constant/color.dart';
 import 'package:ecommerce/core/constant/routes.dart';
+import 'package:ecommerce/view/screen/item_description.dart';
 import 'package:ecommerce/view/widget/appbar/customappbar_textformfield.dart';
 import 'package:ecommerce/view/widget/itemspage/customitemform.dart';
 import 'package:ecommerce/view/widget/itemspage/customlisttypes.dart';
@@ -77,13 +78,30 @@ class ItemsScreen extends StatelessWidget {
                       itemCount: controller.items.length,
                       itemBuilder: (context, i) {
                         return CustomItemForm(
-
                           itemCount: controller.items.length,
                           imageUrl:
                               "${AppLinks.items}/${controller.items[i]['items_image']}",
                           itemName: "${controller.items[i]["items_name"]}",
                           description: '${controller.items[i]["items_desc"]}',
                           price: controller.items[i]["items_price"],
+                          onTap: () {
+                            showModalBottomSheet(
+                                context: context,
+                                isScrollControlled: true,
+                                builder: (_) => ItemDescription(
+                                    imageUrl:
+                                        "${AppLinks.items}/${controller.items[i]['items_image']}",
+                                    itemCount: 5,
+                                    discount: controller.items[i]["items_discount"],
+                                    increaseFun:(){},
+                                    decreaseFun: (){},
+                                    name: "${controller.items[i]["items_name"]}",
+                                    description:"${controller.items[i]["items_desc"]}",
+                                    price: controller.items[i]["items_price"],
+                                    newPrice: controller.newprice!,
+                                    totalPrice: 5.36,
+                                    onTap:(){}));
+                          },
                         );
                       },
                       gridDelegate:

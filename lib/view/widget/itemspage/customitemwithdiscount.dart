@@ -1,6 +1,6 @@
 import 'package:ecommerce/core/constant/color.dart';
+import 'package:ecommerce/core/constant/imageasset.dart';
 import 'package:flutter/material.dart';
-
 
 class CustomItemWithDisCount extends StatelessWidget {
   final int itemCount;
@@ -8,8 +8,9 @@ class CustomItemWithDisCount extends StatelessWidget {
   final String itemName;
   final String description;
   final double price;
- final double newprice;
+  final double newprice;
   final int discount;
+  final void Function()? onTap;
 
   const CustomItemWithDisCount(
       {required this.itemCount,
@@ -17,21 +18,22 @@ class CustomItemWithDisCount extends StatelessWidget {
       required this.itemName,
       required this.description,
       required this.price,
-      Key? key, required this.discount, required this.newprice})
+      Key? key,
+      required this.discount,
+      required this.newprice,required this.onTap})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 7),
       child: InkWell(
-        onTap: () {},
+        onTap:onTap,
         child: Card(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Column(
-             mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Stack(
                   alignment: AlignmentDirectional.topEnd,
@@ -40,8 +42,11 @@ class CustomItemWithDisCount extends StatelessWidget {
                       padding: const EdgeInsets.only(
                         top: 25,
                       ),
-                      child: Image.network(
-                        imageUrl,
+                      child: FadeInImage.assetNetwork(
+                          placeholder: ImageAsset.loadingPicture,
+                          placeholderFit: BoxFit.fill,
+                          placeholderCacheHeight: 120,
+                          image: imageUrl,
                         height: 120,
                         width: double.infinity,
                         fit: BoxFit.fill,
@@ -49,7 +54,7 @@ class CustomItemWithDisCount extends StatelessWidget {
                     ),
                     Positioned(
                       left: 0,
-                      top:115 ,
+                      top: 115,
                       child: Container(
                         width: 60,
                         height: 30,
@@ -58,16 +63,16 @@ class CustomItemWithDisCount extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10)),
                         child: Center(
                             child: Text(
-                            "$discount%",
-                              style: TextStyle(
-                                  fontSize: 15, color: AppColor.white, height: 0),
-                              textAlign: TextAlign.center,
-                            )),
+                          "$discount%",
+                          style: TextStyle(
+                              fontSize: 15, color: AppColor.white, height: 0),
+                          textAlign: TextAlign.center,
+                        )),
                       ),
                     ),
                     IconButton(
-                        onPressed:() {},
-                        icon:const Icon(
+                        onPressed: () {},
+                        icon: const Icon(
                           Icons.star_border,
                           size: 40,
                           color: Colors.grey,
@@ -80,7 +85,7 @@ class CustomItemWithDisCount extends StatelessWidget {
                         decoration: BoxDecoration(
                             color: AppColor.promotioncolor,
                             borderRadius: BorderRadius.circular(10)),
-                        child:const Center(
+                        child: const Center(
                             child: Text(
                           "Promotion",
                           style: TextStyle(
@@ -100,23 +105,24 @@ class CustomItemWithDisCount extends StatelessWidget {
                       color: Colors.black,
                       height: 1.5),
                 ),
-                SizedBox(height: 5,),
+                SizedBox(
+                  height: 5,
+                ),
                 Text(
                   "$newprice",
                   style: const TextStyle(
-                      fontSize: 15,
-                      color: AppColor.primarycolor,
-                      height: 1.5),
+                      fontSize: 15, color: AppColor.primarycolor, height: 1.5),
                 ),
-SizedBox(height: 5,),
+                SizedBox(
+                  height: 5,
+                ),
                 RichText(
                   text: TextSpan(
-
                     children: <TextSpan>[
                       TextSpan(
                         text: "$price",
                         style: TextStyle(
-                          color:AppColor.gray,
+                          color: AppColor.gray,
                           decoration: TextDecoration.lineThrough,
                           decorationColor: AppColor.gray,
                           decorationStyle: TextDecorationStyle.solid,
@@ -130,7 +136,7 @@ SizedBox(height: 5,),
                   children: [
                     IconButton(
                         onPressed: () {},
-                        icon:const Icon(
+                        icon: const Icon(
                           Icons.add_circle,
                           size: 35,
                           color: AppColor.primarycolor,
