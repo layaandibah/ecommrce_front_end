@@ -16,11 +16,12 @@ class HomePageControllerImp extends HomePageController{
   int? id;
   int? discount;
   double? price;
-
   StatusRequest? statusrequest;
   HomeData homeData=HomeData(Get.find());
   List categories=[];
-  List items=[];
+  List itemsdiscount=[];
+  List itemsSoldOut=[];
+  List itemsdiscountsoldout=[];
   double? newprice;
 
 
@@ -42,7 +43,9 @@ class HomePageControllerImp extends HomePageController{
       if(res["status"]=="success"){
         print("====================");
         categories.addAll(res["categories"]);
-        items.addAll(res["itemsdiscount"]);
+        itemsdiscount.addAll(res["itemsdiscount"]);
+        itemsSoldOut.addAll(res["itemssoldout"]);
+        itemsdiscountsoldout.addAll(res["itemsdiscountsoldout"]);
 
       }else{
         //يوجد مشكلة في الباك اند
@@ -55,10 +58,11 @@ class HomePageControllerImp extends HomePageController{
   {
     newprice= double.parse((price-(price*discount/100)).toStringAsFixed(2));
   }
+  chooseitem(){
 
+  }
   @override
   void onInit() {
-
     getData();
     initialData();
     super.onInit();

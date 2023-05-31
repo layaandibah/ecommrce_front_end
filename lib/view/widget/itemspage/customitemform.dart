@@ -1,24 +1,32 @@
+import 'package:ecommerce/controller/homepage_controller.dart';
 import 'package:ecommerce/core/constant/color.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../applinks.dart';
+import '../../../data/model/itemsmodel.dart';
+
+
 
 class CustomItemForm extends StatelessWidget {
-  final int itemCount;
-  final String imageUrl;
-  final String itemName;
-  final String description;
-  final double price;
+  // final int itemCount;
+  // final String imageUrl;
+  // final String itemName;
+  // final String description;
+  // final double price;
   void Function()? onTap;
+  final ItemsModel itemsModel;
 
   CustomItemForm(
-      {required this.itemCount,
-      required this.imageUrl,
-      required this.itemName,
-      required this.description,
-      required this.price,
-        required this.onTap,
-      Key? key})
+      {
+      // required this.itemCount,
+      // required this.imageUrl,
+      // required this.itemName,
+      // required this.description,
+      // required this.price,
+      required this.onTap,
+      Key? key,
+      required this.itemsModel})
       : super(key: key);
 
   @override
@@ -40,7 +48,7 @@ class CustomItemForm extends StatelessWidget {
                         top: 25,
                       ),
                       child: Image.network(
-                        imageUrl,
+                        "${itemsModel.itemsImage}",
                         height: 120,
                         width: double.infinity,
                         fit: BoxFit.fill,
@@ -55,9 +63,9 @@ class CustomItemForm extends StatelessWidget {
                         ))
                   ],
                 ),
-                Text(itemName),
+                Text("${itemsModel.itemsName}"),
                 Text(
-                  description,
+                  "${itemsModel.itemsDesc}",
                   style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
@@ -65,7 +73,7 @@ class CustomItemForm extends StatelessWidget {
                       height: 1.5),
                 ),
                 Text(
-                  "$price",
+                  "${itemsModel.itemsPrice}",
                   style: TextStyle(
                       color: AppColor.primarycolor, fontSize: 13, height: 3),
                 ),
