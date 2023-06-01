@@ -13,8 +13,8 @@ class AppRoutes{
   static const String homepage="/homepage";
   //items
   static const String itemsscreen="/itemsscreen";
-
-
+  //cart
+  static const String cartscreen="/cartscreen";
 
 
 

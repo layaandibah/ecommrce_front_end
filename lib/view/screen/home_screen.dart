@@ -41,8 +41,11 @@ class HomePage extends StatelessWidget {
                       //mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         CustomAppBar(formFaildText: "search items",
-                          onpressedCart: () {},
-                          onPressedIcon: () {},
+                          onpressedCart: () {
+                          },
+                          onPressedIcon: () {
+                            Get.toNamed(AppRoutes.cartscreen);
+                          },
                         ),
                         Image.asset(ImageAsset.homeshope),
                         Container(

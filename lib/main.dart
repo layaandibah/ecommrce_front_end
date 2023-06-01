@@ -32,7 +32,6 @@ class MyApp extends StatelessWidget {
       initialBinding: MyBinding(),
       // routes: routes,
       getPages:routes,
-      home:const CartScreen(),
     );
   }
 }

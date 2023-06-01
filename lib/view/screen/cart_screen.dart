@@ -8,7 +8,6 @@ import 'package:get/get.dart';
 
 import '../../applinks.dart';
 import '../../core/constant/color.dart';
-import '../../core/constant/imageasset.dart';
 import '../widget/cart/customtotal.dart';
 
 class CartScreen extends StatelessWidget {
@@ -17,7 +16,6 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     int groupVal=1;
-    HomePageControllerImp controller = Get.put(HomePageControllerImp());
     return SafeArea(
       child: GetBuilder<HomePageControllerImp>(
         builder: (controller) {
