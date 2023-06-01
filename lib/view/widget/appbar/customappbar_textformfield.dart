@@ -4,12 +4,13 @@ class CustomTextFormFaildAppBar extends StatelessWidget {
 
 
   final String? Function(String?)? validator;
-
+  final void Function()? onPressedIcon;
+   final String? hintText;
   final TextInputType? keyboardType;
   CustomTextFormFaildAppBar(
       {Key? key,
 
-        required this.validator,required this.keyboardType})
+        required this.validator,required this.keyboardType, this.onPressedIcon,required this.hintText})
       : super(key: key);
 
   @override
@@ -21,11 +22,11 @@ class CustomTextFormFaildAppBar extends StatelessWidget {
         cursorColor:Colors.white ,
         keyboardType:keyboardType ,
         validator:validator ,
-        decoration:const InputDecoration(
+        decoration: InputDecoration(
             filled: true,
             fillColor: Colors.white24,
-            suffixIcon: Icon(Icons.search),
-            hintText: "search items",
+            suffixIcon: IconButton(icon:Icon(Icons.search),onPressed:onPressedIcon ),
+            hintText: hintText,
             border: OutlineInputBorder(borderSide:BorderSide.none),
             hintStyle: TextStyle(fontSize: 17,color: Colors.white54),
             suffixIconColor: Colors.white54,

@@ -5,8 +5,8 @@ import '../../../core/constant/color.dart';
 class CustomNameDescriptionPrice extends StatelessWidget {
   String name;
   String description;
-  int discount;
-  double newPrice;
+ final int discount;
+ final double newPrice;
   double price;
   CustomNameDescriptionPrice({required this.name,required this.description,required this.discount,required this.newPrice,required this.price,Key? key}) : super(key: key);
 
@@ -60,11 +60,20 @@ class CustomNameDescriptionPrice extends StatelessWidget {
                   decorationStyle: TextDecorationStyle.solid,
                 ),
               ),
+    TextSpan(
+    text: "$newPrice USD",
+    style:const TextStyle(
+    color: AppColor.primarycolor,
+    fontWeight:
+    FontWeight.bold,
+    ),
+
+    ),
             ],
           ),
         ):const SizedBox(height:0,),
         Text(
-          "$newPrice USD",
+          "$price USD",
           style:const TextStyle(
               color: Colors.black, height: 0, fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,

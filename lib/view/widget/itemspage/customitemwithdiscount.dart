@@ -1,26 +1,32 @@
 import 'package:ecommerce/core/constant/color.dart';
 import 'package:ecommerce/core/constant/imageasset.dart';
+import 'package:ecommerce/data/model/itemsmodel.dart';
 import 'package:flutter/material.dart';
 
+import '../../../applinks.dart';
+
 class CustomItemWithDisCount extends StatelessWidget {
-  final int itemCount;
-  final String imageUrl;
-  final String itemName;
-  final String description;
-  final double price;
-  final double newprice;
-  final int discount;
+  // final int itemCount;
+  // final String imageUrl;
+  // final String itemName;
+  // final String description;
+   final double? price;
+  // final double newprice;
+  // final int discount;
+ final ItemsModel itemsModel;
   final void Function()? onTap;
 
   const CustomItemWithDisCount(
-      {required this.itemCount,
-      required this.imageUrl,
-      required this.itemName,
-      required this.description,
-      required this.price,
+      {
+      //   required this.itemCount,
+      // required this.imageUrl,
+      // required this.itemName,
+      // required this.description,
+       required this.price,
       Key? key,
-      required this.discount,
-      required this.newprice,required this.onTap})
+      // required this.discount,
+      // required this.newprice,
+        required this.onTap, required this.itemsModel})
       : super(key: key);
 
   @override
@@ -46,7 +52,7 @@ class CustomItemWithDisCount extends StatelessWidget {
                           placeholder: ImageAsset.loadingPicture,
                           placeholderFit: BoxFit.fill,
                           placeholderCacheHeight: 120,
-                          image: imageUrl,
+                          image: "${AppLinks.items}/${itemsModel.itemsImage}",
                         height: 120,
                         width: double.infinity,
                         fit: BoxFit.fill,
@@ -63,7 +69,7 @@ class CustomItemWithDisCount extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10)),
                         child: Center(
                             child: Text(
-                          "$discount%",
+                              "${itemsModel.itemsDiscount}%",
                           style: TextStyle(
                               fontSize: 15, color: AppColor.white, height: 0),
                           textAlign: TextAlign.center,
@@ -96,9 +102,9 @@ class CustomItemWithDisCount extends StatelessWidget {
                     ),
                   ],
                 ),
-                Text(itemName),
+                Text("${itemsModel.itemsName}"),
                 Text(
-                  description,
+                  "${itemsModel.itemsDesc}",
                   style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
@@ -109,7 +115,7 @@ class CustomItemWithDisCount extends StatelessWidget {
                   height: 5,
                 ),
                 Text(
-                  "$newprice",
+                  "$price",
                   style: const TextStyle(
                       fontSize: 15, color: AppColor.primarycolor, height: 1.5),
                 ),
@@ -120,7 +126,7 @@ class CustomItemWithDisCount extends StatelessWidget {
                   text: TextSpan(
                     children: <TextSpan>[
                       TextSpan(
-                        text: "$price",
+                        text: "${itemsModel.itemsPrice}",
                         style: TextStyle(
                           color: AppColor.gray,
                           decoration: TextDecoration.lineThrough,
