@@ -112,11 +112,11 @@ class HomePage extends StatelessWidget {
                           scrollDirection: Axis.vertical,
                           itemCount: controller.itemsdiscount.length,
                           itemBuilder: (context, i) {
-                            controller.updateprice(
-                                controller.itemsdiscount[i]["items_discount"],
-                                controller.itemsdiscount[i]["items_price"]);
 
                             return CustomItemWithDisCount(
+                              updateprice: controller.updateprice(
+                                controller.itemsdiscount[i]["items_discount"],
+                                controller.itemsdiscount[i]["items_price"]),
                               price:controller.newprice ,
                              onTap: (){},
                               itemsModel: ItemsModel.fromJson(controller.itemsdiscount[i]),
@@ -147,10 +147,9 @@ class HomePage extends StatelessWidget {
                           scrollDirection: Axis.vertical,
                           itemCount: controller.itemsdiscountsoldout.length,
                           itemBuilder: (context, i) {
-                            controller.updateprice(
+                            return CustomItemDisCountSoldOut(updatePrice:controller.updateprice(
                                 controller.itemsdiscountsoldout[i]["items_discount"],
-                                controller.itemsdiscountsoldout[i]["items_price"]);
-                            return CustomItemDisCountSoldOut(
+                                controller.itemsdiscountsoldout[i]["items_price"]) ,
                               price: controller.newprice,
                               itemsModel: ItemsModel.fromJson(controller.itemsdiscountsoldout[i]),
                             );

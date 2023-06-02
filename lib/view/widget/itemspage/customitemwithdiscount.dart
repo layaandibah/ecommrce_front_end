@@ -8,14 +8,14 @@ import 'package:get/get.dart';
 import '../../../applinks.dart';
 
 class CustomItemWithDisCount extends GetView<HomePageControllerImp> {
-
+   final dynamic updateprice;
    final double? price;
  final ItemsModel itemsModel;
   final void Function()? onTap;
 
    CustomItemWithDisCount(
       {
-
+       required this.updateprice,
         required this.price,
         Key? key,
         required this.onTap, required this.itemsModel})

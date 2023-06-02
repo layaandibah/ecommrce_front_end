@@ -14,13 +14,13 @@ abstract class ItemsController extends GetxController{
 class ItemsControllerImp extends ItemsController{
   StatusRequest? statusrequest;
  late List<dynamic> categories;
- late String selectedCat;
+ late int selectedCat;
  late String catId;
   double? newprice;
   List items=[];
-  List itemsdiscount=[];
-  List itemsSoldOut=[];
-  List itemsdiscountsoldout=[];
+  // List itemsdiscount=[];
+  // List itemsSoldOut=[];
+  // List itemsdiscountsoldout=[];
 
   ItemsData itemsData=ItemsData(Get.find());
 
@@ -34,11 +34,11 @@ class ItemsControllerImp extends ItemsController{
       //فحص الفشل بالباك اند
       if(res["status"]=="success"){
         print("====================");
-        items.addAll(res["items"]);
-        itemsdiscount.addAll(res["itemsdiscount"]);
-        itemsdiscountsoldout.addAll(res["itemsdiscountsoldout"]);
-        itemsSoldOut.addAll(res["itemssoldout"]);
-
+        // items.addAll(res["items"]);
+        // itemsdiscount.addAll(res["itemsdiscount"]);
+        // itemsdiscountsoldout.addAll(res["itemsdiscountsoldout"]);
+        // itemsSoldOut.addAll(res["itemssoldout"]);
+        items.addAll(res["data"]);
       }else{
         //يوجد مشكلة في الباك اند
         // statusrequest=StatusRequest.nodata;
@@ -50,6 +50,7 @@ changCat(val){
     selectedCat=val;
     update();
 }
+  @override
   updateprice(discount, price)
   {
     newprice= double.parse((price-(price*discount/100)).toStringAsFixed(2));

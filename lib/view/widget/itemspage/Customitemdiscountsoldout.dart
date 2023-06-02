@@ -8,13 +8,13 @@ import '../../../applinks.dart';
 class CustomItemDisCountSoldOut extends StatelessWidget {
   final double? price;
   final ItemsModel itemsModel;
-
+final dynamic updatePrice;
 
   const CustomItemDisCountSoldOut(
       {
         required this.price,
         Key? key,
-         required this.itemsModel})
+         required this.itemsModel,required this.updatePrice})
       : super(key: key);
 
   @override
