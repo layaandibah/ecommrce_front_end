@@ -10,7 +10,7 @@ abstract class HomePageController extends GetxController{
   initialData();
   getData();
   updateprice(int discount,double price);
-  goToItims(List<dynamic> categories,String selectedCat,String categoriesId);
+  goToItims(List<dynamic> categories,int selectedCat,String categoriesId);
   addToCart();
 }
 class HomePageControllerImp extends HomePageController{

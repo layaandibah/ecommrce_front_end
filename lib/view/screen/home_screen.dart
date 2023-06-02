@@ -40,8 +40,11 @@ class HomePage extends StatelessWidget {
                     child: Column(
                       //mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        CustomAppBar(formFaildText: "search items",
-                          onpressedCart: () {},
+                        CustomAppBar(cartCount:"${controller.addtocart}",
+                          formFaildText: "search items",
+                          onpressedCart: () {
+                          Get.toNamed(AppRoutes.cartscreen);
+                          },
                           onPressedIcon: () {},
                         ),
                         Image.asset(ImageAsset.homeshope),
@@ -56,7 +59,7 @@ class HomePage extends StatelessWidget {
                             itemBuilder: (context, i) {
                               return InkWell(
                                 onTap: () {
-                                  Get.toNamed(AppRoutes.itemsscreen);
+                                  controller.goToItims(controller.categories, i, "${controller.categories[i]["categories_id"]}" );
                                 },
                                 child: Container(
                                   width: 300,

@@ -36,7 +36,7 @@ class CustomAppBar extends StatelessWidget {
         actions: [
           InkWell(
               onTap:
-                onPressedIcon
+              onpressedCart
               ,
               child: CustomAppBarCartBox())
         ],
