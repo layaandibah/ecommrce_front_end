@@ -6,33 +6,64 @@ import '../core/function/handlingdata.dart';
 import '../core/services/services.dart';
 
 abstract class ItemsController extends GetxController{
-  getAllItems();
-
+  getAllItems(String catId);
+  initData();
+  changCat(val);
+  updateprice(int discount,double price);
 }
 class ItemsControllerImp extends ItemsController{
   StatusRequest? statusrequest;
+ late List<dynamic> categories;
+ late String selectedCat;
+ late String catId;
+  double? newprice;
+  List items=[];
+  List itemsdiscount=[];
+  List itemsSoldOut=[];
+  List itemsdiscountsoldout=[];
 
   ItemsData itemsData=ItemsData(Get.find());
- List items=[];
+
   @override
-  getAllItems()async {
+  getAllItems(catId)async {
     statusrequest=StatusRequest.loading;
-    var res=await itemsData.getData();
+    var res=await itemsData.getData(catId);
     statusrequest=handlingData(res);
     //فحص الفشل او النجاح بالوصول للسيرفر أو الانترنت
     if(StatusRequest.success==statusrequest){
       //فحص الفشل بالباك اند
       if(res["status"]=="success"){
         print("====================");
-        items.addAll(res["data"]);
+        items.addAll(res["items"]);
+        itemsdiscount.addAll(res["itemsdiscount"]);
+        itemsdiscountsoldout.addAll(res["itemsdiscountsoldout"]);
+        itemsSoldOut.addAll(res["itemssoldout"]);
 
       }else{
         //يوجد مشكلة في الباك اند
-        statusrequest=StatusRequest.nodata;
+        // statusrequest=StatusRequest.nodata;
       }
     }
     update();
   }
+changCat(val){
+    selectedCat=val;
+    update();
+}
+  updateprice(discount, price)
+  {
+    newprice= double.parse((price-(price*discount/100)).toStringAsFixed(2));
+  }
+initData(){
+    categories=Get.arguments["categories"];
+    selectedCat=Get.arguments["selectedCat"];
+    catId=Get.arguments["catId"];
+    getAllItems(catId);
+}
+@override
+  void onInit() {
 
-
+    initData();
+    super.onInit();
+  }
 }

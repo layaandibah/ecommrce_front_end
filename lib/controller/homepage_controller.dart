@@ -1,3 +1,4 @@
+import 'package:ecommerce/core/constant/routes.dart';
 import 'package:ecommerce/core/services/services.dart';
 import 'package:ecommerce/data/datasource/remote/home_data.dart';
 import 'package:get/get.dart';
@@ -9,6 +10,8 @@ abstract class HomePageController extends GetxController{
   initialData();
   getData();
   updateprice(int discount,double price);
+  goToItims(List<dynamic> categories,String selectedCat,String categoriesId);
+  addToCart();
 }
 class HomePageControllerImp extends HomePageController{
   MyServices myServices=Get.find();
@@ -23,7 +26,7 @@ class HomePageControllerImp extends HomePageController{
   List itemsSoldOut=[];
   List itemsdiscountsoldout=[];
   double? newprice;
-
+  int addtocart=0;
 
   @override
   initialData(){
@@ -61,8 +64,22 @@ class HomePageControllerImp extends HomePageController{
   chooseitem(){
 
   }
+  goToItims(categories,selectedCat,categoriesId){
+    Get.toNamed(AppRoutes.itemsscreen,arguments: {
+      "categories": categories,
+      "selectedCat": selectedCat,
+      "catId": categoriesId,
+    } );
+
+  }
+  addToCart(){
+    addtocart++;
+    print(addtocart);
+    update();
+  }
   @override
   void onInit() {
+
     getData();
     initialData();
     super.onInit();

@@ -9,8 +9,9 @@ import 'customappbar_textformfield.dart';
 class CustomAppBar extends StatelessWidget {
  final void Function()? onpressedCart;
  final void Function()? onPressedIcon;
+ final String cartCount;
  final String? formFaildText;
-  CustomAppBar({Key? key,required this.onpressedCart,required this.onPressedIcon,required this.formFaildText}) : super(key: key);
+  CustomAppBar({Key? key,required this.onpressedCart,required this.onPressedIcon,required this.formFaildText, required this.cartCount}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +38,7 @@ class CustomAppBar extends StatelessWidget {
               onTap:
                 onPressedIcon
               ,
-              child: CustomAppBarCartBox(count: 10))
+              child: CustomAppBarCartBox())
         ],
         title: const Padding(
           padding: EdgeInsets.only(top: 25),

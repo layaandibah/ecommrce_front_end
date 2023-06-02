@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../../../controller/homepage_controller.dart';
 import '../../../core/constant/color.dart';
 
-class CustomAppBarCartBox extends StatelessWidget {
-  final int count;
-  const CustomAppBarCartBox({Key? key, required this.count}) : super(key: key);
+class CustomAppBarCartBox extends GetView<HomePageControllerImp> {
+
+  const CustomAppBarCartBox({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,7 @@ class CustomAppBarCartBox extends StatelessWidget {
                   color: AppColor.primarycolor,
                   borderRadius: BorderRadius.circular(20)),
               child: Center(
-                child: Text("$count",
+                child: Text("${controller.addtocart}",
                   style:const TextStyle(
                     height: 0,
                     color: Colors.white,

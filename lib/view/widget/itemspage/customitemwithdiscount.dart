@@ -1,31 +1,23 @@
+import 'package:ecommerce/controller/homepage_controller.dart';
 import 'package:ecommerce/core/constant/color.dart';
 import 'package:ecommerce/core/constant/imageasset.dart';
 import 'package:ecommerce/data/model/itemsmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../applinks.dart';
 
-class CustomItemWithDisCount extends StatelessWidget {
-  // final int itemCount;
-  // final String imageUrl;
-  // final String itemName;
-  // final String description;
+class CustomItemWithDisCount extends GetView<HomePageControllerImp> {
+
    final double? price;
-  // final double newprice;
-  // final int discount;
  final ItemsModel itemsModel;
   final void Function()? onTap;
 
-  const CustomItemWithDisCount(
+   CustomItemWithDisCount(
       {
-      //   required this.itemCount,
-      // required this.imageUrl,
-      // required this.itemName,
-      // required this.description,
-       required this.price,
-      Key? key,
-      // required this.discount,
-      // required this.newprice,
+
+        required this.price,
+        Key? key,
         required this.onTap, required this.itemsModel})
       : super(key: key);
 
@@ -141,7 +133,7 @@ class CustomItemWithDisCount extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     IconButton(
-                        onPressed: () {},
+                        onPressed:controller.addToCart,
                         icon: const Icon(
                           Icons.add_circle,
                           size: 35,

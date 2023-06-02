@@ -4,8 +4,10 @@ import 'package:ecommerce/core/class/handlingdataview.dart';
 import 'package:ecommerce/core/constant/color.dart';
 import 'package:ecommerce/core/constant/imageasset.dart';
 import 'package:ecommerce/core/constant/routes.dart';
+import 'package:ecommerce/data/model/categories_model.dart';
 import 'package:ecommerce/data/model/itemsmodel.dart';
 import 'package:ecommerce/view/widget/appbar/customappbar_textformfield.dart';
+import 'package:ecommerce/view/widget/homepage/customcategorycard.dart';
 import 'package:ecommerce/view/widget/itemspage/Customitemdiscountsoldout.dart';
 import 'package:ecommerce/view/widget/itemspage/costomitemsoldout.dart';
 import 'package:ecommerce/view/widget/itemspage/customitemform.dart';
@@ -40,7 +42,9 @@ class HomePage extends StatelessWidget {
                     child: Column(
                       //mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        CustomAppBar(formFaildText: "search items",
+                        CustomAppBar(
+                          cartCount:"${controller.addtocart}",
+                          formFaildText: "search items",
                           onpressedCart: () {},
                           onPressedIcon: () {},
                         ),
@@ -54,30 +58,13 @@ class HomePage extends StatelessWidget {
                             scrollDirection: Axis.vertical,
                             itemCount: controller.categories.length,
                             itemBuilder: (context, i) {
-                              return InkWell(
+                              return CustomCategoryCard(
                                 onTap: () {
-                                  Get.toNamed(AppRoutes.itemsscreen);
+                                  controller.goToItims(controller.categories,
+                                      "$i","${controller.categories[i]["categories_id"]}");
                                 },
-                                child: Container(
-                                  width: 300,
-                                  height: 100,
-                                  child: Card(
-                                    child: Column(
-                                      children: [
-                                        Image.network(
-                                          "${AppLinks.categories}/${controller.categories[i]['categories_image']}",
-                                          fit: BoxFit.fill,
-                                        ),
-                                        Text(
-                                          "${controller.categories[i]["categories_name"]}",
-                                          style: TextStyle(
-                                              fontSize: 17,
-                                              fontWeight: FontWeight.bold),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
+                                categoriesModel: CategoriesModel.fromJson(
+                                    controller.categories[i]),
                               );
                             },
                             gridDelegate:
@@ -114,9 +101,11 @@ class HomePage extends StatelessWidget {
                                 controller.itemsdiscount[i]["items_price"]);
 
                             return CustomItemWithDisCount(
-                              price:controller.newprice ,
-                             onTap: (){},
-                              itemsModel: ItemsModel.fromJson(controller.itemsdiscount[i]),
+
+                              price: controller.newprice,
+                              onTap: () {},
+                              itemsModel: ItemsModel.fromJson(
+                                  controller.itemsdiscount[i]),
                             );
                           },
                           gridDelegate:
@@ -130,13 +119,13 @@ class HomePage extends StatelessWidget {
                           itemCount: controller.itemsSoldOut.length,
                           itemBuilder: (context, i) {
                             return CustomItemSoldOut(
-
-                              itemsModel: ItemsModel.fromJson(controller.itemsSoldOut[i]),
+                              itemsModel: ItemsModel.fromJson(
+                                  controller.itemsSoldOut[i]),
                             );
                           },
                           gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2, childAspectRatio: 0.59),
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2, childAspectRatio: 0.59),
                         ),
                         GridView.builder(
                           shrinkWrap: true,
@@ -145,16 +134,19 @@ class HomePage extends StatelessWidget {
                           itemCount: controller.itemsdiscountsoldout.length,
                           itemBuilder: (context, i) {
                             controller.updateprice(
-                                controller.itemsdiscountsoldout[i]["items_discount"],
-                                controller.itemsdiscountsoldout[i]["items_price"]);
+                                controller.itemsdiscountsoldout[i]
+                                    ["items_discount"],
+                                controller.itemsdiscountsoldout[i]
+                                    ["items_price"]);
                             return CustomItemDisCountSoldOut(
                               price: controller.newprice,
-                              itemsModel: ItemsModel.fromJson(controller.itemsdiscountsoldout[i]),
+                              itemsModel: ItemsModel.fromJson(
+                                  controller.itemsdiscountsoldout[i]),
                             );
                           },
                           gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2, childAspectRatio: 0.59),
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2, childAspectRatio: 0.59),
                         )
                       ],
                     ),

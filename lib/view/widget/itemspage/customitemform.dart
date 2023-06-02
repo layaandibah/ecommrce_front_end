@@ -8,22 +8,12 @@ import '../../../data/model/itemsmodel.dart';
 
 
 
-class CustomItemForm extends StatelessWidget {
-  // final int itemCount;
-  // final String imageUrl;
-  // final String itemName;
-  // final String description;
-  // final double price;
+class CustomItemForm extends GetView<HomePageControllerImp> {
   void Function()? onTap;
   final ItemsModel itemsModel;
 
   CustomItemForm(
       {
-      // required this.itemCount,
-      // required this.imageUrl,
-      // required this.itemName,
-      // required this.description,
-      // required this.price,
       required this.onTap,
       Key? key,
       required this.itemsModel})
@@ -48,7 +38,7 @@ class CustomItemForm extends StatelessWidget {
                         top: 25,
                       ),
                       child: Image.network(
-                        "${itemsModel.itemsImage}",
+                        "${AppLinks.items}/${itemsModel.itemsImage}",
                         height: 120,
                         width: double.infinity,
                         fit: BoxFit.fill,
@@ -81,7 +71,9 @@ class CustomItemForm extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     IconButton(
-                        onPressed: () {},
+                        onPressed: (){
+                          controller.addToCart();
+                        },
                         icon: Icon(
                           Icons.add_circle,
                           size: 35,

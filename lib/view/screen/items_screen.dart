@@ -7,7 +7,9 @@ import 'package:ecommerce/core/constant/routes.dart';
 import 'package:ecommerce/data/model/itemsmodel.dart';
 import 'package:ecommerce/view/screen/item_description.dart';
 import 'package:ecommerce/view/widget/appbar/customappbar_textformfield.dart';
+import 'package:ecommerce/view/widget/itemspage/costomitemsoldout.dart';
 import 'package:ecommerce/view/widget/itemspage/customitemform.dart';
+import 'package:ecommerce/view/widget/itemspage/customitemwithdiscount.dart';
 import 'package:ecommerce/view/widget/itemspage/customlisttypes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,14 +21,15 @@ import '../widget/itemspage/customDialog.dart';
 class ItemsScreen extends StatelessWidget {
   const ItemsScreen({Key? key}) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
     int? lbp = 1;
     int? usd = 42567;
 
     return SafeArea(
-      child: GetBuilder<HomePageControllerImp>(
-        init:HomePageControllerImp (),
+      child: GetBuilder<ItemsControllerImp>(
+        init:ItemsControllerImp (),
         builder: (controller) => HandlingDataView(
             statusrequest: controller.statusrequest,
             widget: Scaffold(
@@ -52,7 +55,7 @@ class ItemsScreen extends StatelessWidget {
                       onTap: () {
                         Get.offNamed(AppRoutes.successsignup);
                       },
-                      child: CustomAppBarCartBox(count: 10))
+                      child: CustomAppBarCartBox())
                 ],
                 title: const Padding(
                   padding: EdgeInsets.only(top: 25),
@@ -65,36 +68,36 @@ class ItemsScreen extends StatelessWidget {
                   preferredSize: Size.fromHeight(82),
                 ),
               ),
-              body: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  //List of Types
-                  CustomListTypes(),
-                  //Default sorting
-                  CustomDialog(),
-                  Expanded(
-                    child: GridView.builder(
+              body: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    //List of Types
+                    CustomListTypes(),
+                    //Default sorting
+                    CustomDialog(),
+                    GridView.builder(
                       shrinkWrap: true,
-                      physics: ScrollPhysics(),
+                      physics: NeverScrollableScrollPhysics(),
                       scrollDirection: Axis.vertical,
-                      itemCount: controller.itemsdiscount.length,
+                      itemCount: controller.items.length,
                       itemBuilder: (context, i) {
                         return CustomItemForm(
-                 itemsModel: ItemsModel.fromJson(controller.itemsdiscount[i]),
+                   itemsModel: ItemsModel.fromJson(controller.items[i]),
                           onTap: () {
                             showModalBottomSheet(
                                 context: context,
                                 isScrollControlled: true,
                                 builder: (_) => ItemDescription(
                                     imageUrl:
-                                        "${AppLinks.items}/${controller.itemsdiscount[i]['items_image']}",
+                                        "${AppLinks.items}/${controller.items[i]['items_image']}",
                                     itemCount: 5,
-                                    discount: controller.itemsdiscount[i]["items_discount"],
+                                    discount: controller.items[i]["items_discount"],
                                     increaseFun:(){},
                                     decreaseFun: (){},
-                                    name: "${controller.itemsdiscount[i]["items_name"]}",
-                                    description:"${controller.itemsdiscount[i]["items_desc"]}",
-                                    price: controller.itemsdiscount[i]["items_price"],
+                                    name: "${controller.items[i]["items_name"]}",
+                                    description:"${controller.items[i]["items_desc"]}",
+                                    price: controller.items[i]["items_price"],
                                     newPrice: 0,
                                     totalPrice: 5.36,
                                     onTap:(){}));
@@ -105,8 +108,59 @@ class ItemsScreen extends StatelessWidget {
                           const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2, childAspectRatio: 0.59),
                     ),
-                  )
-                ],
+                    GridView.builder(
+                      shrinkWrap: true,
+                      physics:NeverScrollableScrollPhysics(),
+                      scrollDirection: Axis.vertical,
+                      itemCount: controller.items.length,
+                      itemBuilder: (context, i) {
+                        return CustomItemSoldOut(
+                          itemsModel: ItemsModel.fromJson(controller.itemsSoldOut[i]),
+                        );
+                      },
+                      gridDelegate:
+                      const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2, childAspectRatio: 0.59),
+                    ),GridView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      scrollDirection: Axis.vertical,
+                      itemCount: controller.itemsdiscount.length,
+                      itemBuilder: (context, i) {
+                        controller.updateprice(
+                            controller.itemsdiscount[i]
+                            ["items_discount"],
+                            controller.itemsdiscount[i]
+                            ["items_price"]);
+                        return CustomItemWithDisCount(
+
+                          itemsModel: ItemsModel.fromJson(controller.itemsdiscount[i]),
+                          onTap: () {
+                            showModalBottomSheet(
+                                context: context,
+                                isScrollControlled: true,
+                                builder: (_) => ItemDescription(
+                                    imageUrl:
+                                    "${AppLinks.items}/${controller.itemsdiscount[i]['items_image']}",
+                                    itemCount: 5,
+                                    discount: controller.itemsdiscount[i]["items_discount"],
+                                    increaseFun:(){},
+                                    decreaseFun: (){},
+                                    name: "${controller.itemsdiscount[i]["items_name"]}",
+                                    description:"${controller.itemsdiscount[i]["items_desc"]}",
+                                    price: controller.itemsdiscount[i]["items_price"],
+                                    newPrice: 0,
+                                    totalPrice: 5.36,
+                                    onTap:(){}));
+                          }, price:controller.newprice,
+                        );
+                      },
+                      gridDelegate:
+                      const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2, childAspectRatio: 0.59),
+                    )
+                  ],
+                ),
               ),
             )),
       ),
