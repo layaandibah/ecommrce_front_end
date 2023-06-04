@@ -1,4 +1,6 @@
+import 'package:ecommerce/core/constant/color.dart';
 import 'package:ecommerce/data/datasource/remote/items_data.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../core/class/statusrequest.dart';
@@ -20,9 +22,8 @@ class ItemsControllerImp extends ItemsController{
   RxDouble? newprice;
   RxList items=[].obs;
   RxList specificItems=[].obs;
-  // List itemsdiscount=[];
-  // List itemsSoldOut=[];
-  // List itemsdiscountsoldout=[];
+  RxList typeList=[].obs;
+ late int tabIndex;
 
   ItemsData itemsData=ItemsData(Get.find());
 
@@ -36,11 +37,7 @@ class ItemsControllerImp extends ItemsController{
       //فحص الفشل بالباك اند
       if(res["status"]=="success"){
         print("====================");
-        // items.addAll(res["items"]);
-        // itemsdiscount.addAll(res["itemsdiscount"]);
-        // itemsdiscountsoldout.addAll(res["itemsdiscountsoldout"]);
-        // itemsSoldOut.addAll(res["itemssoldout"]);
-        items.addAll(res["data"]);
+        items.addAll(res["types"]);
       }else{
         //يوجد مشكلة في الباك اند
         // statusrequest=StatusRequest.nodata;
@@ -57,11 +54,7 @@ class ItemsControllerImp extends ItemsController{
       //فحص الفشل بالباك اند
       if(res["status"]=="success"){
         print("====================");
-        // items.addAll(res["items"]);
-        // itemsdiscount.addAll(res["itemsdiscount"]);
-        // itemsdiscountsoldout.addAll(res["itemsdiscountsoldout"]);
-        // itemsSoldOut.addAll(res["itemssoldout"]);
-        specificItems.clear();
+         specificItems.clear();
         specificItems.addAll(res["data"]);
       }else{
         //يوجد مشكلة في الباك اند
@@ -80,6 +73,7 @@ class ItemsControllerImp extends ItemsController{
     newprice= double.parse((price-(price*discount/100)).toStringAsFixed(2)).obs;
   }
   initData(){
+    tabIndex=-1;
     selectedCat=Get.arguments["selectedCat"];
     catId=Get.arguments["catId"];
     itemsType="-1";
