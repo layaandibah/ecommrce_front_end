@@ -1,3 +1,4 @@
+import 'package:ecommerce/controller/test.dart';
 import 'package:ecommerce/core/middelware/mymiddleware.dart';
 import 'package:ecommerce/view/screen/cart_screen.dart';
 import 'package:ecommerce/view/screen/auth/forgetpassword/success_resetpassword.dart';
@@ -41,7 +42,8 @@ List<GetPage<dynamic>>? routes=[
   GetPage(name: AppRoutes.itemsscreen, page:()=>ItemsScreen() ),
   //cart
   GetPage(name: AppRoutes.cartscreen, page:()=>CartScreen()),
-
+//test
+ // GetPage(name: AppRoutes.itemsscreen, page:()=>Test()),
 
 
 ];

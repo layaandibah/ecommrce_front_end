@@ -8,11 +8,10 @@ class ItemsData{
 
   ItemsData(this.crud);
 
-  getData(String id)async{
-    var res=await crud.postData(AppLinks.itemspage,{"category_id":id});
+  getData(String id,String itemsType)async{
+    var res=await crud.postData(AppLinks.itemspage,{"category_id":id,"items_type":itemsType});
     return  res.fold((left) =>left ,(right) =>right );
   }
-
 
 
 }

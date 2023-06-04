@@ -15,7 +15,8 @@ class AppRoutes{
   static const String itemsscreen="/itemsscreen";
   //cart
   static const String cartscreen="/cartscreen";
-
+  //test
+  static const String test="/test";
 
 
 

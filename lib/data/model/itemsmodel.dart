@@ -7,7 +7,10 @@ class ItemsModel {
   int? itemsDiscount;
   String? itemsDate;
   String? itemsImage;
-  int? itemsCat;
+  int? itemsType;
+  int? typeId;
+  String? typeName;
+  int? typeCat;
   int? categoriesId;
   String? categoriesName;
   String? categoriesImage;
@@ -22,7 +25,10 @@ class ItemsModel {
         this.itemsDiscount,
         this.itemsDate,
         this.itemsImage,
-        this.itemsCat,
+        this.itemsType,
+        this.typeId,
+        this.typeName,
+        this.typeCat,
         this.categoriesId,
         this.categoriesName,
         this.categoriesImage,
@@ -37,7 +43,10 @@ class ItemsModel {
     itemsDiscount = json['items_discount'];
     itemsDate = json['items_date'];
     itemsImage = json['items_image'];
-    itemsCat = json['items_cat'];
+    itemsType = json['items_type'];
+    typeId = json['type_id'];
+    typeName = json['type_name'];
+    typeCat = json['type_cat'];
     categoriesId = json['categories_id'];
     categoriesName = json['categories_name'];
     categoriesImage = json['categories_image'];
@@ -54,7 +63,10 @@ class ItemsModel {
     data['items_discount'] = this.itemsDiscount;
     data['items_date'] = this.itemsDate;
     data['items_image'] = this.itemsImage;
-    data['items_cat'] = this.itemsCat;
+    data['items_type'] = this.itemsType;
+    data['type_id'] = this.typeId;
+    data['type_name'] = this.typeName;
+    data['type_cat'] = this.typeCat;
     data['categories_id'] = this.categoriesId;
     data['categories_name'] = this.categoriesName;
     data['categories_image'] = this.categoriesImage;

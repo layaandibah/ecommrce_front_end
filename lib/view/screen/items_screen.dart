@@ -28,7 +28,7 @@ class ItemsScreen extends StatelessWidget {
     int? usd = 42567;
 
     return SafeArea(
-      child: GetBuilder<ItemsControllerImp>(
+      child: GetX<ItemsControllerImp>(
         init: ItemsControllerImp(),
         builder: (controller) => HandlingDataView(
             statusrequest: controller.statusrequest,
@@ -76,95 +76,136 @@ class ItemsScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     //List of Types
-                    CustomListTypes(),
+                    Container(
+                      color: AppColor.white,
+                      height: 50,
+                      width: double.infinity,
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            MaterialButton(
+                              onPressed: () {
+                                controller.getSpecificItems(
+                                    controller.catId,
+                                    "-1");
+                              },
+                              child:const Text("All"),
+                            ),
+                            ListView.builder(
+                              shrinkWrap: true,
+                              physics:const NeverScrollableScrollPhysics(),
+                              itemCount: controller.items.value.length,
+                              itemBuilder: (context, i) {
+                                return MaterialButton(
+                                  onPressed: () {
+                                    controller.getSpecificItems(
+                                        "${controller.items.value[i]["categories_id"]}",
+                                        "${controller.items.value[i]["items_type"]}");
+                                  },
+                                  child: Text("${controller.items.value[i]["type_name"]}"),
+                                );
+                              },
+                              scrollDirection: Axis.horizontal,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                     //Default sorting
                     CustomDialog(),
                     GridView.builder(
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
                       scrollDirection: Axis.vertical,
-                      itemCount: controller.items.length,
+                      itemCount: controller.specificItems.value.length,
                       itemBuilder: (context, i) {
-                        return controller.items[i]["items_discount"] == 0 &&
-                                controller.items[i]["items_active"] == 1
+                        return controller.specificItems.value[i]["items_discount"] == 0 &&
+                            controller.specificItems.value[i]["items_active"] == 1
                             ? CustomItemForm(
-                                itemsModel:
-                                    ItemsModel.fromJson(controller.items[i]),
-                                onTap: () {
-                                  showModalBottomSheet(
-                                      context: context,
-                                      isScrollControlled: true,
-                                      builder: (_) => ItemDescription(
-                                          imageUrl:
-                                              "${AppLinks.items}/${controller.items[i]['items_image']}",
-                                          itemCount: 5,
-                                          discount: controller.items[i]
-                                              ["items_discount"],
-                                          increaseFun: () {},
-                                          decreaseFun: () {},
-                                          name:
-                                              "${controller.items[i]["items_name"]}",
-                                          description:
-                                              "${controller.items[i]["items_desc"]}",
-                                          price: controller.items[i]
-                                              ["items_price"],
-                                          newPrice: 0,
-                                          totalPrice: 5.36,
-                                          onTap: () {}));
-                                },
-                              )
-                            : controller.items[i]["items_discount"] > 0 &&
-                                    controller.items[i]["items_active"] == 1
-                                ? CustomItemWithDisCount(
-                          updateprice:controller.updateprice(
-                            controller.items[i]["items_discount"],
-                            controller.items[i]["items_price"]) ,
-                                    itemsModel: ItemsModel.fromJson(
-                                        controller.items[i]),
-                                    onTap: () {
-                                      showModalBottomSheet(
-                                          context: context,
-                                          isScrollControlled: true,
-                                          builder: (_) => ItemDescription(
-                                              imageUrl:
-                                                  "${AppLinks.items}/${controller.items[i]['items_image']}",
-                                              itemCount: 5,
-                                              discount: controller.items[i]
-                                                  ["items_discount"],
-                                              increaseFun: () {},
-                                              decreaseFun: () {},
-                                              name:
-                                                  "${controller.items[i]["items_name"]}",
-                                              description:
-                                                  "${controller.items[i]["items_desc"]}",
-                                              price: controller.items[i]
-                                                  ["items_price"],
-                                              newPrice: 0,
-                                              totalPrice: 5.36,
-                                              onTap: () {}));
-                                    },
-                                    price: controller.newprice,
-                                  )
-                                : controller.items[i]["items_discount"] == 0 &&
-                                        controller.items[i]["items_active"] == 0
-                                    ? CustomItemSoldOut(
-                                        itemsModel: ItemsModel.fromJson(
-                                            controller.items[i]),
-                                      )
-                                    : controller.items[i]["items_discount"] > 0 && controller.items[i]["items_active"] == 0
-                                        ? CustomItemDisCountSoldOut(
+                          itemsModel:
+                          ItemsModel.fromJson(controller.specificItems.value[i]),
+                          onTap: () {
+                            showModalBottomSheet(
+                                context: context,
+                                isScrollControlled: true,
+                                builder: (_) => ItemDescription(
+                                    imageUrl:
+                                    "${AppLinks.items}/${controller.specificItems.value[i]['items_image']}",
+                                    itemCount: 5,
+                                    discount: controller.specificItems.value[i]
+                                    ["items_discount"],
+                                    increaseFun: () {},
+                                    decreaseFun: () {},
+                                    name:
+                                    "${controller.specificItems.value[i]["items_name"]}",
+                                    description:
+                                    "${controller.specificItems.value[i]["items_desc"]}",
+                                    price: controller.specificItems.value[i]
+                                    ["items_price"],
+                                    newPrice: 0,
+                                    totalPrice: 5.36,
+                                    onTap: () {}));
+                          },
+                        )
+                            : controller.specificItems.value[i]["items_discount"] > 0 &&
+                            controller.specificItems.value[i]["items_active"] == 1
+                            ? CustomItemWithDisCount(
+                          updateprice: controller.updateprice(
+                              controller.specificItems.value[i]["items_discount"],
+                              controller.specificItems.value[i]["items_price"]),
+                          itemsModel: ItemsModel.fromJson(
+                              controller.specificItems.value[i]),
+                          onTap: () {
+                            showModalBottomSheet(
+                                context: context,
+                                isScrollControlled: true,
+                                builder: (_) => ItemDescription(
+                                    imageUrl:
+                                    "${AppLinks.items}/${controller.specificItems.value[i]['items_image']}",
+                                    itemCount: 5,
+                                    discount: controller.specificItems.value[i]
+                                    ["items_discount"],
+                                    increaseFun: () {},
+                                    decreaseFun: () {},
+                                    name:
+                                    "${controller.specificItems.value[i]["items_name"]}",
+                                    description:
+                                    "${controller.specificItems.value[i]["items_desc"]}",
+                                    price: controller.specificItems.value[i]
+                                    ["items_price"],
+                                    newPrice: 0,
+                                    totalPrice: 5.36,
+                                    onTap: () {}));
+                          },
+                          price: controller.newprice!.value,
+                        )
+                            : controller.specificItems.value[i]["items_discount"] == 0 &&
+                            controller.specificItems.value[i]["items_active"] == 0
+                            ? CustomItemSoldOut(
+                          itemsModel: ItemsModel.fromJson(
+                              controller.specificItems.value[i]),
+                        )
+                            : controller.specificItems.value[i]["items_discount"] >
+                            0 &&
+                            controller.specificItems.value[i]
+                            ["items_active"] ==
+                                0
+                            ? CustomItemDisCountSoldOut(
                           updatePrice: controller.updateprice(
-                              controller.items[i]["items_discount"],
-                              controller.items[i]["items_price"]),
-                                            price: controller.newprice,
-                                            itemsModel: ItemsModel.fromJson(
-                                                controller.items[i]),
-                                          )
-                                        : Text("data");
+                              controller.specificItems.value[i]
+                              ["items_discount"],
+                              controller.specificItems.value[i]
+                              ["items_price"]),
+                          price: controller.newprice!.value,
+                          itemsModel: ItemsModel.fromJson(
+                              controller.specificItems.value[i]),
+                        )
+                            : Text("data");
                       },
                       gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2, childAspectRatio: 0.59),
+                      const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2, childAspectRatio: 0.59),
                     ),
                   ],
                 ),
@@ -174,61 +215,3 @@ class ItemsScreen extends StatelessWidget {
     );
   }
 }
-//   CustomItemForm(
-//   itemsModel: ItemsModel.fromJson(controller.items[i]),
-//   onTap: () {
-//   showModalBottomSheet(
-//   context: context,
-//   isScrollControlled: true,
-//   builder: (_) => ItemDescription(
-//   imageUrl:
-//   "${AppLinks.items}/${controller.items[i]['items_image']}",
-//   itemCount: 5,
-//   discount: controller.items[i]
-//   ["items_discount"],
-//   increaseFun: () {},
-//   decreaseFun: () {},
-//   name:
-//   "${controller.items[i]["items_name"]}",
-//   description:
-//   "${controller.items[i]["items_desc"]}",
-//   price: controller.items[i]["items_price"],
-//   newPrice: 0,
-//   totalPrice: 5.36,
-//   onTap: () {}));
-//   },
-//   );
-// },
-
-// CustomItemSoldOut(
-// itemsModel:
-// ItemsModel.fromJson(controller.itemsSoldOut[i]),
-// );
-
-// CustomItemWithDisCount(
-// itemsModel:
-// ItemsModel.fromJson(controller.itemsdiscount[i]),
-// onTap: () {
-// showModalBottomSheet(
-// context: context,
-// isScrollControlled: true,
-// builder: (_) => ItemDescription(
-// imageUrl:
-// "${AppLinks.items}/${controller.itemsdiscount[i]['items_image']}",
-// itemCount: 5,
-// discount: controller.itemsdiscount[i]
-// ["items_discount"],
-// increaseFun: () {},
-// decreaseFun: () {},
-// name:
-// "${controller.itemsdiscount[i]["items_name"]}",
-// description:
-// "${controller.itemsdiscount[i]["items_desc"]}",
-// price: controller.itemsdiscount[i]
-// ["items_price"],
-// newPrice: 0,
-// totalPrice: 5.36,
-// onTap: () {}));
-// },
-// price: controller.newprice,
-// );

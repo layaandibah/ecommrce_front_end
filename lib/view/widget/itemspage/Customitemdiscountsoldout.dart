@@ -126,6 +126,7 @@ final dynamic updatePrice;
                       ],
                     ),
                   ),
+                  SizedBox(height: 45,)
                 ],
               ),
             ),

@@ -1,21 +1,23 @@
+import 'package:ecommerce/data/model/itemsmodel.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/constant/color.dart';
 
 class CustomListTypes extends StatelessWidget {
-  CustomListTypes({Key? key}) : super(key: key);
-  List myList = ["Kasswar", "Maya", "Yael","books","school", "Yael","books","school"];
+  final ItemsModel itemsModel;
+  final int itemCount;
+  const CustomListTypes({Key? key, required this.itemsModel, required this.itemCount}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
       color: AppColor.white,
       height: 50,
       child: ListView.builder(
-        itemCount: myList.length,
+        itemCount: itemCount,
         itemBuilder: (context, index) {
           return MaterialButton(
             onPressed: () {},
-            child: Text("${myList[index]}"),
+            child: Text("${itemsModel.typeName}"),
           );
         },
         scrollDirection: Axis.horizontal,

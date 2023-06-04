@@ -1,7 +1,7 @@
 class AppLinks{
 
 
-  static const String serverlink="http://192.168.50.214/ecommerce";
+  static const String serverlink="http://192.168.122.9/ecommerce_back_end";
 
   //image
   static const String imagestatic="$serverlink/upload";
@@ -18,7 +18,10 @@ class AppLinks{
   static const String homepage="$serverlink/home.php";
 //items
   static const String itemspage="$serverlink/items/view.php";
-
+ //cart
+  static const String cartview="$serverlink/cart/view.php";
+  static const String cartadd="$serverlink/cart/add.php";
+  static const String cartdelete="$serverlink/cart/delete.php";
   //test
   static const String testlink="$serverlink/test.php";
 
