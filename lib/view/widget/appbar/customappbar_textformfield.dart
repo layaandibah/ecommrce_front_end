@@ -5,12 +5,15 @@ class CustomTextFormFaildAppBar extends StatelessWidget {
 
   final String? Function(String?)? validator;
   final void Function()? onPressedIcon;
-   final String? hintText;
+  final String? hintText;
   final TextInputType? keyboardType;
+  final void Function(String)? onChanged;
+ final TextEditingController? controller;
+
   CustomTextFormFaildAppBar(
       {Key? key,
 
-        required this.validator,required this.keyboardType, this.onPressedIcon,required this.hintText})
+        required this.validator,required this.keyboardType, this.onPressedIcon,required this.hintText,required this.onChanged,required this.controller})
       : super(key: key);
 
   @override
@@ -19,6 +22,8 @@ class CustomTextFormFaildAppBar extends StatelessWidget {
 
       margin:const EdgeInsets.symmetric(vertical:3,horizontal: 7),
       child: TextFormField(
+        controller: controller,
+        onChanged:onChanged ,
         cursorColor:Colors.white ,
         keyboardType:keyboardType ,
         validator:validator ,

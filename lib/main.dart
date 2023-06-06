@@ -1,5 +1,4 @@
 import 'package:ecommerce/binding.dart';
-import 'package:ecommerce/controller/test.dart';
 import 'package:ecommerce/core/localazation/changelocale.dart';
 import 'package:ecommerce/core/localazation/translation.dart';
 import 'package:ecommerce/core/services/services.dart';

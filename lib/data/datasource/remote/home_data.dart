@@ -13,6 +13,9 @@ class HomeData{
     return  res.fold((left) =>left ,(right) =>right );
   }
 
-
+  searchdata(String name)async{
+    var res=await crud.postData(AppLinks.search,{"items_name":name});
+    return  res.fold((left) =>left ,(right) =>right );
+  }
 
 }

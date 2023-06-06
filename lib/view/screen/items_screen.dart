@@ -1,20 +1,13 @@
-import 'package:ecommerce/applinks.dart';
 import 'package:ecommerce/controller/homepage_controller.dart';
 import 'package:ecommerce/controller/items_controller.dart';
 import 'package:ecommerce/core/class/handlingdataview.dart';
 import 'package:ecommerce/core/constant/color.dart';
 import 'package:ecommerce/core/constant/routes.dart';
 import 'package:ecommerce/data/model/itemsmodel.dart';
-import 'package:ecommerce/view/screen/item_description.dart';
 import 'package:ecommerce/view/widget/appbar/customappbar_textformfield.dart';
-import 'package:ecommerce/view/widget/itemspage/Customitemdiscountsoldout.dart';
-import 'package:ecommerce/view/widget/itemspage/costomitemsoldout.dart';
-import 'package:ecommerce/view/widget/itemspage/customitemform.dart';
-import 'package:ecommerce/view/widget/itemspage/customitemwithdiscount.dart';
-import 'package:ecommerce/view/widget/itemspage/customlisttypes.dart';
+import 'package:ecommerce/view/widget/itemspage/customitemsscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../widget/appbar/customappbar_cart.dart';
 import '../widget/floatingactionbutton/customfloatingactionbuttoncoin.dart';
 import '../widget/itemspage/customDialog.dart';
@@ -27,6 +20,7 @@ class ItemsScreen extends StatelessWidget {
     int? lbp = 1;
     int? usd = 42567;
 
+    HomePageControllerImp controllerImp = Get.put(HomePageControllerImp());
     return SafeArea(
       child: GetX<ItemsControllerImp>(
         init: ItemsControllerImp(),
@@ -67,6 +61,8 @@ class ItemsScreen extends StatelessWidget {
                     validator: (val) {},
                     keyboardType: TextInputType.text,
                     hintText: 'search items',
+                    onChanged: (String) {},
+                    controller: null,
                   ),
                   preferredSize: Size.fromHeight(82),
                 ),
@@ -87,14 +83,13 @@ class ItemsScreen extends StatelessWidget {
                             MaterialButton(
                               onPressed: () {
                                 controller.getSpecificItems(
-                                    controller.catId,
-                                    "-1");
+                                    controller.catId, "-1");
                               },
-                              child:const Text("All"),
+                              child: const Text("All"),
                             ),
                             ListView.builder(
                               shrinkWrap: true,
-                              physics:const NeverScrollableScrollPhysics(),
+                              physics: const NeverScrollableScrollPhysics(),
                               itemCount: controller.items.value.length,
                               itemBuilder: (context, i) {
                                 return MaterialButton(
@@ -103,7 +98,8 @@ class ItemsScreen extends StatelessWidget {
                                         "${controller.items.value[i]["categories_id"]}",
                                         "${controller.items.value[i]["items_type"]}");
                                   },
-                                  child: Text("${controller.items.value[i]["type_name"]}"),
+                                  child: Text(
+                                      "${controller.items.value[i]["type_name"]}"),
                                 );
                               },
                               scrollDirection: Axis.horizontal,
@@ -114,99 +110,47 @@ class ItemsScreen extends StatelessWidget {
                     ),
                     //Default sorting
                     CustomDialog(),
-                    GridView.builder(
+                    !controllerImp.isSearch == true
+                        ?GridView.builder(
                       shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      scrollDirection: Axis.vertical,
+                      physics: ScrollPhysics(),
+                      gridDelegate:
+                      SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,childAspectRatio: 0.59),
                       itemCount: controller.specificItems.value.length,
                       itemBuilder: (context, i) {
-                        return controller.specificItems.value[i]["items_discount"] == 0 &&
-                            controller.specificItems.value[i]["items_active"] == 1
-                            ? CustomItemForm(
-                          itemsModel:
-                          ItemsModel.fromJson(controller.specificItems.value[i]),
-                          onTap: () {
-                            showModalBottomSheet(
-                                context: context,
-                                isScrollControlled: true,
-                                builder: (_) => ItemDescription(
-                                    imageUrl:
-                                    "${AppLinks.items}/${controller.specificItems.value[i]['items_image']}",
-                                    itemCount: 5,
-                                    discount: controller.specificItems.value[i]
-                                    ["items_discount"],
-                                    increaseFun: () {},
-                                    decreaseFun: () {},
-                                    name:
-                                    "${controller.specificItems.value[i]["items_name"]}",
-                                    description:
-                                    "${controller.specificItems.value[i]["items_desc"]}",
-                                    price: controller.specificItems.value[i]
-                                    ["items_price"],
-                                    newPrice: 0,
-                                    totalPrice: 5.36,
-                                    onTap: () {}));
-                          },
-                        )
-                            : controller.specificItems.value[i]["items_discount"] > 0 &&
-                            controller.specificItems.value[i]["items_active"] == 1
-                            ? CustomItemWithDisCount(
-                          updateprice: controller.updateprice(
-                              controller.specificItems.value[i]["items_discount"],
-                              controller.specificItems.value[i]["items_price"]),
-                          itemsModel: ItemsModel.fromJson(
-                              controller.specificItems.value[i]),
-                          onTap: () {
-                            showModalBottomSheet(
-                                context: context,
-                                isScrollControlled: true,
-                                builder: (_) => ItemDescription(
-                                    imageUrl:
-                                    "${AppLinks.items}/${controller.specificItems.value[i]['items_image']}",
-                                    itemCount: 5,
-                                    discount: controller.specificItems.value[i]
-                                    ["items_discount"],
-                                    increaseFun: () {},
-                                    decreaseFun: () {},
-                                    name:
-                                    "${controller.specificItems.value[i]["items_name"]}",
-                                    description:
-                                    "${controller.specificItems.value[i]["items_desc"]}",
-                                    price: controller.specificItems.value[i]
-                                    ["items_price"],
-                                    newPrice: 0,
-                                    totalPrice: 5.36,
-                                    onTap: () {}));
-                          },
-                          price: controller.newprice!.value,
-                        )
-                            : controller.specificItems.value[i]["items_discount"] == 0 &&
-                            controller.specificItems.value[i]["items_active"] == 0
-                            ? CustomItemSoldOut(
-                          itemsModel: ItemsModel.fromJson(
-                              controller.specificItems.value[i]),
-                        )
-                            : controller.specificItems.value[i]["items_discount"] >
-                            0 &&
-                            controller.specificItems.value[i]
-                            ["items_active"] ==
-                                0
-                            ? CustomItemDisCountSoldOut(
-                          updatePrice: controller.updateprice(
-                              controller.specificItems.value[i]
-                              ["items_discount"],
-                              controller.specificItems.value[i]
-                              ["items_price"]),
-                          price: controller.newprice!.value,
-                          itemsModel: ItemsModel.fromJson(
-                              controller.specificItems.value[i]),
-                        )
-                            : Text("data");
+                        return CustomItemsScreen(
+                            isHome: true,
+                            itemsModel: ItemsModel.fromJson(
+                                controller.specificItems.value[i]),
+                            updateprice: controller.updateprice(
+                                controller.specificItems.value[i]
+                                ["items_discount"],
+                                controller.specificItems.value[i]
+                                ["items_price"]),
+                            newprice:controller.newprice!.value);
                       },
+                    )
+                        :GridView.builder(
+                      shrinkWrap: true,
+                      physics: ScrollPhysics(),
                       gridDelegate:
-                      const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2, childAspectRatio: 0.59),
-                    ),
+                      SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,childAspectRatio: 0.59),
+                      itemCount: controllerImp.responseitems.value.length,
+                      itemBuilder: (context, i) {
+                        return CustomItemsScreen(
+                            isHome: true,
+                            itemsModel: ItemsModel.fromJson(
+                                controllerImp.responseitems.value[i]),
+                            updateprice: controller.updateprice(
+                                controllerImp.responseitems.value[i]
+                                ["items_discount"],
+                                controllerImp.responseitems.value[i]
+                                ["items_price"]),
+                            newprice:controllerImp.newprice!);
+                      },
+                    )  ,
                   ],
                 ),
               ),
@@ -215,3 +159,4 @@ class ItemsScreen extends StatelessWidget {
     );
   }
 }
+

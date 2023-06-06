@@ -57,10 +57,6 @@ class ItemsControllerImp extends ItemsController{
       //فحص الفشل بالباك اند
       if(res["status"]=="success"){
         print("====================");
-        // items.addAll(res["items"]);
-        // itemsdiscount.addAll(res["itemsdiscount"]);
-        // itemsdiscountsoldout.addAll(res["itemsdiscountsoldout"]);
-        // itemsSoldOut.addAll(res["itemssoldout"]);
         specificItems.clear();
         specificItems.addAll(res["data"]);
       }else{

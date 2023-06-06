@@ -11,7 +11,9 @@ class CustomAppBar extends StatelessWidget {
  final void Function()? onPressedIcon;
  final String cartCount;
  final String? formFaildText;
-  CustomAppBar({Key? key,required this.onpressedCart,required this.onPressedIcon,required this.formFaildText, required this.cartCount}) : super(key: key);
+ final void Function(String)? onChanged;
+final TextEditingController? controller;
+  CustomAppBar({Key? key,required this.onpressedCart,required this.onPressedIcon,required this.formFaildText, required this.cartCount,required this.onChanged,required this.controller}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +48,10 @@ class CustomAppBar extends StatelessWidget {
         ),
         centerTitle: true,
         bottom: PreferredSize(
+          preferredSize:const Size.fromHeight(82),
           child: CustomTextFormFaildAppBar(
             onPressedIcon:onPressedIcon ,
-              validator: (val) {}, keyboardType: TextInputType.text, hintText: formFaildText,),
-          preferredSize: Size.fromHeight(82),
+              validator: (val) {}, keyboardType: TextInputType.text, hintText: formFaildText, onChanged: onChanged, controller: null,),
         ),
       ),
     );

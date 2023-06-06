@@ -17,6 +17,7 @@ import '../widget/appbar/customappbar.dart';
 import '../widget/appbar/customappbar_cart.dart';
 import '../widget/floatingactionbutton/customfloatingactionbuttoncoin.dart';
 import '../widget/homepage/customdrawer.dart';
+import '../widget/itemspage/customitemsscreen.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -29,143 +30,150 @@ class HomePage extends StatelessWidget {
     return SafeArea(
       child: GetBuilder<HomePageControllerImp>(
         builder: (controller) {
-          return HandlingDataView(
-              statusrequest: controller.statusrequest,
-              widget: Scaffold(
-                floatingActionButtonLocation:
-                    FloatingActionButtonLocation.miniEndFloat,
-                floatingActionButton: CustomFloatingActionButtonCoin(),
-                body: SafeArea(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      //mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CustomAppBar(cartCount:"${controller.addtocart}",
-                          formFaildText: "search items",
-                          onpressedCart: () {
-                          Get.toNamed(AppRoutes.cartscreen);
-                          },
-                          onPressedIcon: () {},
-                        ),
-                        Image.asset(ImageAsset.homeshope),
-                        Container(
-                          padding: EdgeInsets.all(5),
-                          width: double.infinity,
-                          child: GridView.builder(
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            scrollDirection: Axis.vertical,
-                            itemCount: controller.categories.length,
-                            itemBuilder: (context, i) {
-                              return InkWell(
-                                onTap: () {
-                                  controller.goToItims(controller.categories, i, "${controller.categories[i]["categories_id"]}" );
-                                },
-                                child: Container(
-                                  width: 300,
-                                  height: 100,
-                                  child: Card(
-                                    child: Column(
-                                      children: [
-                                        Image.network(
-                                          "${AppLinks.categories}/${controller.categories[i]['categories_image']}",
-                                          fit: BoxFit.fill,
-                                        ),
-                                        Text(
-                                          "${controller.categories[i]["categories_name"]}",
-                                          style: TextStyle(
-                                              fontSize: 17,
-                                              fontWeight: FontWeight.bold),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 3, crossAxisSpacing: 5),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 17,
-                        ),
-                        Container(
-                          width: double.infinity,
-                          margin: EdgeInsets.only(left: 10),
-                          child: const Text(
-                            "Promotion",
-                            style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            textAlign: TextAlign.left,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 3,
-                        ),
-                        GridView.builder(
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          scrollDirection: Axis.vertical,
-                          itemCount: controller.itemsdiscount.length,
-                          itemBuilder: (context, i) {
-
-                            return CustomItemWithDisCount(
-                              updateprice: controller.updateprice(
-                                controller.itemsdiscount[i]["items_discount"],
-                                controller.itemsdiscount[i]["items_price"]),
-                              price:controller.newprice ,
-                             onTap: (){},
-                              itemsModel: ItemsModel.fromJson(controller.itemsdiscount[i]),
-                            );
-                          },
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2, childAspectRatio: 0.59),
-                        ),
-                        GridView.builder(
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          scrollDirection: Axis.vertical,
-                          itemCount: controller.itemsSoldOut.length,
-                          itemBuilder: (context, i) {
-                            return CustomItemSoldOut(
-
-                              itemsModel: ItemsModel.fromJson(controller.itemsSoldOut[i]),
-                            );
-                          },
-                          gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2, childAspectRatio: 0.59),
-                        ),
-                        GridView.builder(
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          scrollDirection: Axis.vertical,
-                          itemCount: controller.itemsdiscountsoldout.length,
-                          itemBuilder: (context, i) {
-                            return CustomItemDisCountSoldOut(updatePrice:controller.updateprice(
-                                controller.itemsdiscountsoldout[i]["items_discount"],
-                                controller.itemsdiscountsoldout[i]["items_price"]) ,
-                              price: controller.newprice,
-                              itemsModel: ItemsModel.fromJson(controller.itemsdiscountsoldout[i]),
-                            );
-                          },
-                          gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2, childAspectRatio: 0.59),
-                        )
-                      ],
-                    ),
+          return Scaffold(
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.miniEndFloat,
+            floatingActionButton: CustomFloatingActionButtonCoin(),
+            body: SafeArea(
+                child: SingleChildScrollView(
+              child: Column(
+                //mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CustomAppBar(
+                    controller: controller.searchitems,
+                    onChanged: (val) {
+                      controller.cheackSearch(val);
+                    },
+                    cartCount: "${controller.addtocart}",
+                    formFaildText: "search items",
+                    onpressedCart: () {
+                      Get.toNamed(AppRoutes.cartscreen);
+                    },
+                    onPressedIcon: () {
+                      controller.onSearchitems();
+                    },
                   ),
-                ),
-                drawer: CustomDrawer(),
-              ));
+                  !controller.isSearch == true
+                      ? Column(
+                          children: [
+                            Image.asset(ImageAsset.homeshope),
+                            Container(
+                              padding: EdgeInsets.all(5),
+                              width: double.infinity,
+                              child: GridView.builder(
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                scrollDirection: Axis.vertical,
+                                itemCount: controller.categories.length,
+                                itemBuilder: (context, i) {
+                                  return InkWell(
+                                    onTap: () {
+                                      controller.goToItims(
+                                          controller.categories,
+                                          i,
+                                          "${controller.categories[i]["categories_id"]}");
+                                    },
+                                    child: Container(
+                                      width: 300,
+                                      height: 100,
+                                      child: Card(
+                                        child: Column(
+                                          children: [
+                                            Image.network(
+                                              "${AppLinks.categories}/${controller.categories[i]['categories_image']}",
+                                              fit: BoxFit.fill,
+                                            ),
+                                            Text(
+                                              "${controller.categories[i]["categories_name"]}",
+                                              style: TextStyle(
+                                                  fontSize: 17,
+                                                  fontWeight: FontWeight.bold),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 3, crossAxisSpacing: 5),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 17,
+                            ),
+                            Container(
+                              width: double.infinity,
+                              margin: EdgeInsets.only(left: 10),
+                              child: const Text(
+                                "Promotion",
+                                style: TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                textAlign: TextAlign.left,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 3,
+                            ),
+                  GridView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    scrollDirection: Axis.vertical,
+                    itemCount: controller.allitemshome.length,
+                    itemBuilder: (context, i) {
+                      return CustomItemsScreen(
+                          isHome: true,
+                          itemsModel: ItemsModel.fromJson(
+                              controller.allitemshome[i]),
+                          updateprice: controller.updateprice(
+                              controller.allitemshome[i]
+                              ["items_discount"],
+                              controller.allitemshome[i]
+                              ["items_price"]),
+                          newprice: controller.newprice!);
+                    },
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2, childAspectRatio: 0.59),
+                  )
+
+                  ],)
+                      : GetX<HomePageControllerImp>(
+                      builder: (control){
+                        return GridView.builder(
+                          shrinkWrap: true,
+                          physics: ScrollPhysics(),
+                          gridDelegate:
+                          SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,childAspectRatio: 0.59),
+                          itemCount: control.responseitems.value.length,
+                          itemBuilder: (context, i) {
+                            return CustomItemsScreen(
+                                isHome: true,
+                                itemsModel: ItemsModel.fromJson(
+                                    control.responseitems.value[i]),
+                                updateprice: controller.updateprice(
+                                    control.responseitems.value[i]
+                                    ["items_discount"],
+                                    control.responseitems.value[i]
+                                    ["items_price"]),
+                                newprice: controller.newprice!);
+                          },
+                        );
+                  })
+                ],
+              ),
+            )),
+            drawer: CustomDrawer(),
+          );
         },
       ),
     );
   }
 }
+
+
+
+

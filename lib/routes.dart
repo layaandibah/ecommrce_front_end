@@ -1,5 +1,3 @@
-import 'package:ecommerce/controller/test.dart';
-import 'package:ecommerce/core/middelware/mymiddleware.dart';
 import 'package:ecommerce/view/screen/cart_screen.dart';
 import 'package:ecommerce/view/screen/auth/forgetpassword/success_resetpassword.dart';
 
@@ -12,7 +10,6 @@ import 'package:ecommerce/view/screen/auth/forgetpassword/verifycode.dart';
 import 'package:ecommerce/view/screen/auth/verifycodesignup.dart';
 import 'package:ecommerce/view/screen/home_screen.dart';
 import 'package:ecommerce/view/screen/items_screen.dart';
-import 'package:ecommerce/view/screen/language.dart';
 import 'package:ecommerce/view/screen/onboarding.dart';
 import 'package:get/get.dart';
 
