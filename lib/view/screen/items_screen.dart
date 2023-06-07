@@ -67,58 +67,62 @@ class ItemsScreen extends StatelessWidget {
                   preferredSize: Size.fromHeight(82),
                 ),
               ),
-              body: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    //List of Types
-                    Container(
-                      color: AppColor.white,
-                      height: 50,
-                      width: double.infinity,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            MaterialButton(
-                              onPressed: () {
-                                controller.getSpecificItems(
-                                    controller.catId, "-1");
-                              },
-                              child: const Text("All"),
-                            ),
-                            ListView.builder(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: controller.items.value.length,
-                              itemBuilder: (context, i) {
-                                return MaterialButton(
-                                  onPressed: () {
-                                    controller.getSpecificItems(
-                                        "${controller.items.value[i]["categories_id"]}",
-                                        "${controller.items.value[i]["items_type"]}");
-                                  },
-                                  child: Text(
-                                      "${controller.items.value[i]["type_name"]}"),
-                                );
-                              },
-                              scrollDirection: Axis.horizontal,
-                            ),
-                          ],
-                        ),
+              body: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  //List of Types
+                  Container(
+                    color: AppColor.white,
+                    height: 50,
+                    width: double.infinity,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          MaterialButton(
+                            onPressed: () {
+                              controller.tabIndex=-1;
+                              controller.getSpecificItems(
+                                  controller.catId,
+                                  "-1",controller.userId);
+                            },
+                            child: Text("All",style: TextStyle(color:controller.tabIndex==-1?AppColor.primarycolor:AppColor.black),),
+                          ),
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: controller.items.value.length,
+                            itemBuilder: (context, i) {
+                              return MaterialButton(
+                                onPressed: () {
+                                  controller.tabIndex=i;
+                                  controller.getSpecificItems(controller.catId,
+                                      "${controller.items
+                                          .value[i]["items_type"]}",controller.userId);
+                                },
+                                child: Text("${controller.items
+                                    .value[i]["type_name"]}", style:TextStyle(color:controller.tabIndex==i?AppColor.primarycolor:AppColor.black),),
+                              );
+                            },
+                            scrollDirection: Axis.horizontal,
+                          ),
+                        ],
                       ),
                     ),
-                    //Default sorting
-                    CustomDialog(),
-                    !controllerImp.isSearch == true
-                        ?GridView.builder(
-                      shrinkWrap: true,
-                      physics: ScrollPhysics(),
-                      gridDelegate:
-                      SliverGridDelegateWithFixedCrossAxisCount(
+                  ),
+                  //Default sorting
+                  CustomDialog(),
+                  !controllerImp.isSearch == true
+                      ?Expanded(
+                        child: GridView.builder(
+                    shrinkWrap: true,
+                    physics: ScrollPhysics(),
+                    gridDelegate:
+                    SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,childAspectRatio: 0.59),
-                      itemCount: controller.specificItems.value.length,
-                      itemBuilder: (context, i) {
+                    itemCount: controller.specificItems.value.length,
+                    itemBuilder: (context, i) {
                         return CustomItemsScreen(
                             isHome: true,
                             itemsModel: ItemsModel.fromJson(
@@ -129,16 +133,18 @@ class ItemsScreen extends StatelessWidget {
                                 controller.specificItems.value[i]
                                 ["items_price"]),
                             newprice:controller.newprice!.value);
-                      },
-                    )
-                        :GridView.builder(
-                      shrinkWrap: true,
-                      physics: ScrollPhysics(),
-                      gridDelegate:
-                      SliverGridDelegateWithFixedCrossAxisCount(
+                    },
+                  ),
+                      )
+                      :Expanded(
+                        child: GridView.builder(
+                    shrinkWrap: true,
+                    physics: ScrollPhysics(),
+                    gridDelegate:
+                    SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,childAspectRatio: 0.59),
-                      itemCount: controllerImp.responseitems.value.length,
-                      itemBuilder: (context, i) {
+                    itemCount: controllerImp.responseitems.value.length,
+                    itemBuilder: (context, i) {
                         return CustomItemsScreen(
                             isHome: true,
                             itemsModel: ItemsModel.fromJson(
@@ -149,10 +155,10 @@ class ItemsScreen extends StatelessWidget {
                                 controllerImp.responseitems.value[i]
                                 ["items_price"]),
                             newprice:controllerImp.newprice!);
-                      },
-                    )  ,
-                  ],
-                ),
+                    },
+                  ),
+                      )  ,
+                ],
               ),
             )),
       ),

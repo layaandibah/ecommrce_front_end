@@ -11,7 +11,7 @@ import '../data/model/itemsmodel.dart';
 abstract class HomePageController extends GetxController {
   initialData();
 
-  getData();
+  getData(String userId);
 
   updateprice(int discount, double price);
 
@@ -35,6 +35,7 @@ class HomePageControllerImp extends HomePageController {
   int addtocart = 0;
   TextEditingController? searchitems;
   bool isSearch = false;
+  late String userId;
   // List<ItemsModel> searchdata = [];
 
   @override
@@ -44,9 +45,9 @@ class HomePageControllerImp extends HomePageController {
   }
 
   @override
-  getData() async {
+  getData(String userId) async {
     statusrequest = StatusRequest.loading;
-    var res = await homeData.getData();
+    var res = await homeData.getData(userId);
     statusrequest = handlingData(res);
     //فحص الفشل او النجاح بالوصول للسيرفر أو الانترنت
     if (StatusRequest.success == statusrequest) {
@@ -120,7 +121,8 @@ class HomePageControllerImp extends HomePageController {
   @override
   void onInit() {
     searchitems = TextEditingController();
-    getData();
+    userId="1";
+    getData(userId);
     initialData();
     super.onInit();
   }

@@ -6,8 +6,8 @@ import '../core/function/handlingdata.dart';
 import '../core/services/services.dart';
 
 abstract class ItemsController extends GetxController{
-  getAllItems(String catId,String itemsType);
-  getSpecificItems(String catId,String itemsType);
+  getAllItems(String catId,String itemsType,String userId);
+  getSpecificItems(String catId,String itemsType,String userId);
   initData();
   changCat(val);
   updateprice(int discount,double price);
@@ -15,8 +15,10 @@ abstract class ItemsController extends GetxController{
 class ItemsControllerImp extends ItemsController{
   StatusRequest? statusrequest;
   late int selectedCat;
+  late int tabIndex;
   late String catId;
   late String itemsType;
+  late String userId;
   RxDouble? newprice;
   RxList items=[].obs;
   RxList specificItems=[].obs;
@@ -27,20 +29,17 @@ class ItemsControllerImp extends ItemsController{
   ItemsData itemsData=ItemsData(Get.find());
 
   @override
-  getAllItems(catId,itemsType)async {
+  getAllItems(String catId,String itemsType,String userId)async {
     statusrequest=StatusRequest.loading;
-    var res=await itemsData.getData(catId,itemsType);
+    var res=await itemsData.getData(catId,itemsType,userId);
     statusrequest=handlingData(res);
     //فحص الفشل او النجاح بالوصول للسيرفر أو الانترنت
     if(StatusRequest.success==statusrequest){
       //فحص الفشل بالباك اند
       if(res["status"]=="success"){
         print("====================");
-        // items.addAll(res["items"]);
-        // itemsdiscount.addAll(res["itemsdiscount"]);
-        // itemsdiscountsoldout.addAll(res["itemsdiscountsoldout"]);
-        // itemsSoldOut.addAll(res["itemssoldout"]);
-        items.addAll(res["data"]);
+        items.clear();
+        items.addAll(res["types"]);
       }else{
         //يوجد مشكلة في الباك اند
         // statusrequest=StatusRequest.nodata;
@@ -48,9 +47,9 @@ class ItemsControllerImp extends ItemsController{
     }
     update();
   }
-  getSpecificItems(catId,itemsType)async {
+  getSpecificItems(String catId,String itemsType,String userId)async {
     statusrequest=StatusRequest.loading;
-    var res=await itemsData.getData(catId,itemsType);
+    var res=await itemsData.getData(catId,itemsType,userId);
     statusrequest=handlingData(res);
     //فحص الفشل او النجاح بالوصول للسيرفر أو الانترنت
     if(StatusRequest.success==statusrequest){
@@ -78,9 +77,11 @@ class ItemsControllerImp extends ItemsController{
   initData(){
     selectedCat=Get.arguments["selectedCat"];
     catId=Get.arguments["catId"];
+    tabIndex=-1;
     itemsType="-1";
-    getAllItems(catId,"-1");
-    getSpecificItems(catId, itemsType);
+    userId="1";
+    getAllItems(catId,"-1",userId);
+    getSpecificItems(catId, itemsType,userId);
   }
   @override
   void onInit() {

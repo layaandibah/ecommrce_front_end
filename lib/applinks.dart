@@ -1,7 +1,7 @@
 class AppLinks{
 
 
-  static const String serverlink="http://192.168.34.214/ecommerce";
+  static const String serverlink="http://192.168.30.9/ecommerce_back_end";
 
   //image
   static const String imagestatic="$serverlink/upload";

@@ -8,8 +8,8 @@ class HomeData{
 
   HomeData(this.crud);
 
-  getData()async{
-    var res=await crud.postData(AppLinks.homepage,{});
+  getData(String userId)async{
+    var res=await crud.postData(AppLinks.homepage,{"user_id":userId});
     return  res.fold((left) =>left ,(right) =>right );
   }
 
